@@ -1,0 +1,131 @@
+[gd_scene load_steps=22 format=3 uid="uid://clbbapfr1s6p2"]
+
+[ext_resource type="Script" uid="uid://djro4tt85m0gc" path="res://Scripts/player.gd" id="1_3smsa"]
+[ext_resource type="Texture2D" uid="uid://bt0fyged04cu0" path="res://Assets/Characters/Players/Foxy/Sprites/idle/player-idle-1.png" id="1_vgqql"]
+[ext_resource type="Texture2D" uid="uid://b8b657anq35rb" path="res://Assets/Characters/Players/Foxy/Sprites/jump/player-jump-2.png" id="2_fd4e3"]
+[ext_resource type="Texture2D" uid="uid://cbp8m3te3aqwh" path="res://Assets/Characters/Players/Foxy/Sprites/idle/player-idle-2.png" id="2_fkybt"]
+[ext_resource type="Texture2D" uid="uid://chbxtk8bphe0s" path="res://Assets/Characters/Players/Foxy/Sprites/idle/player-idle-3.png" id="3_x3wgy"]
+[ext_resource type="Texture2D" uid="uid://ckepu22qsmtyn" path="res://Assets/Characters/Players/Foxy/Sprites/idle/player-idle-4.png" id="4_3smsa"]
+[ext_resource type="PackedScene" uid="uid://duxvdgdfd5ytb" path="res://Scenes/Components/gravity_component.tscn" id="5_fkybt"]
+[ext_resource type="PackedScene" uid="uid://bgkvlg53jub1m" path="res://Scenes/Components/input_components.tscn" id="7_8erm5"]
+[ext_resource type="Texture2D" uid="uid://b7o1gk8yhrrlx" path="res://Assets/Characters/Players/Foxy/Sprites/jump/player-jump-1.png" id="7_qqcod"]
+[ext_resource type="PackedScene" uid="uid://d0knnmnhenpbc" path="res://Scenes/Components/movement_component.tscn" id="8_8erm5"]
+[ext_resource type="Texture2D" uid="uid://b52dy6c6drv1v" path="res://Assets/Characters/Players/Foxy/Sprites/run/player-run-1.png" id="8_igrcy"]
+[ext_resource type="Texture2D" uid="uid://v0quftxp42op" path="res://Assets/Characters/Players/Foxy/Sprites/run/player-run-2.png" id="9_fs7ks"]
+[ext_resource type="Texture2D" uid="uid://c6nqj43idbdjk" path="res://Assets/Characters/Players/Foxy/Sprites/run/player-run-3.png" id="10_l6n3p"]
+[ext_resource type="Texture2D" uid="uid://23rvv5bb2hd7" path="res://Assets/Characters/Players/Foxy/Sprites/run/player-run-4.png" id="11_olqyp"]
+[ext_resource type="Texture2D" uid="uid://b602qgmc4dgp7" path="res://Assets/Characters/Players/Foxy/Sprites/run/player-run-5.png" id="12_wpjfl"]
+[ext_resource type="Texture2D" uid="uid://cn1ut2sbuhyqb" path="res://Assets/Characters/Players/Foxy/Sprites/run/player-run-6.png" id="13_bi64h"]
+[ext_resource type="PackedScene" uid="uid://dbhf03yllxjac" path="res://Scenes/Components/animation_component.tscn" id="17_qqcod"]
+[ext_resource type="PackedScene" uid="uid://bklp5j06cegn0" path="res://Scenes/Components/jump_component.tscn" id="18_igrcy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8erm5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fd4e3")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vgqql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_fkybt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x3wgy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3smsa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qqcod")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_igrcy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_fs7ks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_l6n3p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_olqyp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_wpjfl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_bi64h")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1ek2"]
+radius = 8.0
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_igrcy"]
+radius = 12.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "jump_component") groups=["Player"]]
+script = ExtResource("1_3smsa")
+gravity_component = NodePath("GravityComponent")
+input_component = NodePath("InputComponents")
+movement_component = NodePath("MovementComponent")
+animation_component = NodePath("AnimationComponent")
+jump_component = NodePath("JumpComponent")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -5)
+sprite_frames = SubResource("SpriteFrames_8erm5")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_f1ek2")
+
+[node name="GravityComponent" parent="." instance=ExtResource("5_fkybt")]
+
+[node name="InputComponents" parent="." instance=ExtResource("7_8erm5")]
+
+[node name="MovementComponent" parent="." instance=ExtResource("8_8erm5")]
+
+[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("17_qqcod")]
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="JumpComponent" parent="." instance=ExtResource("18_igrcy")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = -1200
+limit_top = -100
+limit_smoothed = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_horizontal_offset = 0.91
+drag_vertical_offset = 0.4
+
+[node name="PlayerHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
+position = Vector2(-1, -1)
+shape = SubResource("CapsuleShape2D_igrcy")
+
+[connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_body_exited"]

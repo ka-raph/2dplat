@@ -1,0 +1,75 @@
+[gd_scene load_steps=14 format=3 uid="uid://bgx7ssspwa7fe"]
+
+[ext_resource type="Texture2D" uid="uid://c7fsnct135d3e" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export1.png" id="1_37jdp"]
+[ext_resource type="Script" uid="uid://df51dydrmix5d" path="res://Scripts/ghost.gd" id="1_yxsxn"]
+[ext_resource type="Texture2D" uid="uid://6y0hvi01lwit" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export2.png" id="2_yxsxn"]
+[ext_resource type="Texture2D" uid="uid://bb6yer5i0j5yk" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export3.png" id="3_ekpol"]
+[ext_resource type="Texture2D" uid="uid://u7fduug0lpc0" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export4.png" id="4_qtrkw"]
+[ext_resource type="Texture2D" uid="uid://cm7cxwe1xb6fr" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export5.png" id="5_7545c"]
+[ext_resource type="Texture2D" uid="uid://he46g18frq3c" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export6.png" id="6_p2m0j"]
+[ext_resource type="Script" uid="uid://dad5xhjwn6lno" path="res://Scripts/States/state_machine.gd" id="8_st3at"]
+[ext_resource type="Script" uid="uid://bstjhnfyc8ab8" path="res://Scripts/States/ghost_idle.gd" id="9_7hbae"]
+[ext_resource type="Script" uid="uid://260sqmng1uuu" path="res://Scripts/States/ghost_follow.gd" id="10_xoekh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pvgmm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_37jdp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_yxsxn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ekpol")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qtrkw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7545c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_p2m0j")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_37jdp"]
+height = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xoekh"]
+radius = 20.0998
+
+[node name="Ghost" type="CharacterBody2D"]
+script = ExtResource("1_yxsxn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -2)
+sprite_frames = SubResource("SpriteFrames_pvgmm")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_37jdp")
+
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("8_st3at")
+initial_state = NodePath("Follow")
+
+[node name="Idle" type="Node" parent="State Machine" node_paths=PackedStringArray("ghost")]
+script = ExtResource("9_7hbae")
+ghost = NodePath("../..")
+metadata/_custom_type_script = "uid://bstjhnfyc8ab8"
+
+[node name="Follow" type="Node" parent="State Machine" node_paths=PackedStringArray("ghost")]
+script = ExtResource("10_xoekh")
+ghost = NodePath("../..")
+metadata/_custom_type_script = "uid://260sqmng1uuu"
+
+[node name="GhostHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostHitbox"]
+shape = SubResource("CircleShape2D_xoekh")
