@@ -23,3 +23,7 @@ func handle_jump_animation(is_jumping: bool, is_falling: bool) -> void:
 		sprite.play("jump")
 	elif is_falling:
 		sprite.play("fall")
+		
+func handle_hurt_animation(is_hurt: bool) -> void:
+	if is_hurt:
+		sprite.play("hurt")

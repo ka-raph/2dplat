@@ -73,3 +73,6 @@ metadata/_custom_type_script = "uid://260sqmng1uuu"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostHitbox"]
 shape = SubResource("CircleShape2D_xoekh")
+
+[connection signal="body_entered" from="GhostHitbox" to="." method="_on_ghost_hitbox_body_entered"]
+[connection signal="body_exited" from="GhostHitbox" to="." method="_on_ghost_hitbox_body_exited"]

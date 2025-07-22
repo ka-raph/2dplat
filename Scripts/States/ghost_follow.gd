@@ -11,7 +11,6 @@ func Enter():
 func Physics_Update(delta: float):
 	var direction = player.global_position - ghost.global_position
 	
-	print(direction.length())
 	if direction.length() > 25:
 		ghost.velocity = direction.normalized() * move_speed
 	else:
