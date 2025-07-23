@@ -37,6 +37,7 @@ func _physics_process(delta: float) -> void:
 		is_player_alive = false # Add handle respawn
 		health = 0
 		print("player is dead")
+		get_tree().reload_current_scene()
 		# to delete the player node: self.queue_free() but should delete all monsters and such instead perhaps?
 
 func player() -> void:
