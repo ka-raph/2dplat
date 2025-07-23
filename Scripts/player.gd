@@ -15,6 +15,7 @@ var is_recovering: bool = false
 var is_hurt: bool = false
 var health: float = 100
 var is_player_alive: bool = true
+var push_direction: float = 1
 
 var attack_in_progress: bool = false
 
@@ -28,7 +29,7 @@ func _physics_process(delta: float) -> void:
 	jump_component.handle_jump(self, input_component.get_jump_input())
 	
 	# Basic listeners
-	enemy_attack()
+	enemy_touched()
 	move_and_slide()
 	
 	# TODO make dmg + attack in components
@@ -44,15 +45,14 @@ func player() -> void:
 func _on_player_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("enemy"):
 		is_enemy_in_attack_range = true
-		# Avoid re-triggering a hit
-		# $CollisionShape2D.set_deferred("disabled", true)
+		push_direction = 1 if (body.global_position.x < global_position.x) else -1
 
 
 func _on_player_hitbox_body_exited(body: Node2D) -> void:
 	if body.has_method("enemy"):
 		is_enemy_in_attack_range = false
 
-func enemy_attack() -> void:
+func enemy_touched() -> void:
 	if is_enemy_in_attack_range and not is_recovering:
 		health -= 20
 		is_recovering = true
@@ -60,6 +60,8 @@ func enemy_attack() -> void:
 		$RecoveringCooldown.start()
 		$HurtCooldown.start()
 		player_hurt_animation.play("playerHurt")
+		velocity.x = push_direction * 75
+		velocity.y = -75
 		print(health)
 
 
