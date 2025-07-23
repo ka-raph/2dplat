@@ -16,17 +16,21 @@ var is_hurt: bool = false
 var health: float = 100
 var is_player_alive: bool = true
 var push_direction: float = 1
-
 var attack_in_progress: bool = false
+
 
 func _physics_process(delta: float) -> void:
 	# Component listeners
 	gravity_component.handle_gravity(self, delta)
 	movement_component.handle_horizontal_movement(self, input_component.input_horizontal, is_recovering)
-	animation_component.handle_move_animation(input_component.input_horizontal)
+	animation_component.handle_move_animation(attack_in_progress, is_hurt, input_component.input_horizontal)
 	animation_component.handle_jump_animation(jump_component.is_jumping, gravity_component.is_falling)
 	animation_component.handle_hurt_animation(is_hurt)
+	animation_component.handle_attack_animation(input_component.get_attack_input())
 	jump_component.handle_jump(self, input_component.get_jump_input())
+	if input_component.get_attack_input():
+		attack_in_progress = true
+		$AttackCooldown.start()
 	
 	# Basic listeners
 	enemy_touched()
@@ -72,3 +76,7 @@ func _on_damage_cooldown_timeout() -> void:
 
 func _on_hurt_cooldown_timeout() -> void:
 	is_hurt = false
+
+
+func _on_attack_cooldown_timeout() -> void:
+	attack_in_progress = false
