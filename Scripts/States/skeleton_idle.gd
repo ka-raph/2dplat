@@ -30,4 +30,4 @@ func Physics_Update(delta: float):
 	var direction = player.global_position - skeleton.global_position
 	
 	if direction.length() < 100:
-		Transitioned.emit(self, "follow")
+		Transitioned.emit(self, "Follow")

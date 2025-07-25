@@ -178,5 +178,5 @@ position = Vector2(138, 211)
 [node name="Ghost" parent="World" instance=ExtResource("3_wrm1d")]
 position = Vector2(545, -91)
 
-[node name="skeleton" parent="World" instance=ExtResource("4_3dryh")]
+[node name="Skeleton" parent="World" instance=ExtResource("4_3dryh")]
 position = Vector2(839, 44)

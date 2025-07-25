@@ -4,18 +4,18 @@
 [ext_resource type="Shader" uid="uid://bmieib6il15lm" path="res://Scenes/playerHurt.gdshader" id="1_olqyp"]
 [ext_resource type="Texture2D" uid="uid://dsnxc4vevce56" path="res://Assets/Characters/Players/Knight/Attack/Attack1/Frames/ATTACK 1.png" id="3_7dp3o"]
 [ext_resource type="Texture2D" uid="uid://cs5ockca7qsok" path="res://Assets/Characters/Players/Knight/Attack/Attack2/Frames/ATTACK 2.png" id="4_7dp3o"]
-[ext_resource type="PackedScene" uid="uid://duxvdgdfd5ytb" path="res://Scenes/Components/gravity_component.tscn" id="5_fkybt"]
 [ext_resource type="Texture2D" uid="uid://kr22mwaam8mi" path="res://Assets/Characters/Players/Knight/Attack/Attack3/Frames/ATTACK 3.png" id="5_h4iuc"]
 [ext_resource type="Texture2D" uid="uid://dqjhffpinhmnw" path="res://Assets/Characters/Players/Knight/Defend/Frames/DEFEND.png" id="6_fd4e3"]
 [ext_resource type="Texture2D" uid="uid://dnnkudchyg5bm" path="res://Assets/Characters/Players/Knight/Hurt/Frames/HURT.png" id="6_h4iuc"]
 [ext_resource type="Texture2D" uid="uid://yvubt85eblxv" path="res://Assets/Characters/Players/Knight/Idle/Frames/IDLE.png" id="6_igrcy"]
 [ext_resource type="Texture2D" uid="uid://b3qsrlllfpeki" path="res://Assets/Characters/Players/Knight/Dead/Frames/DEATH.png" id="6_qqcod"]
-[ext_resource type="PackedScene" uid="uid://bgkvlg53jub1m" path="res://Scenes/Components/input_components.tscn" id="7_8erm5"]
-[ext_resource type="PackedScene" uid="uid://d0knnmnhenpbc" path="res://Scenes/Components/movement_component.tscn" id="8_8erm5"]
 [ext_resource type="Texture2D" uid="uid://dx8aeijbye2iu" path="res://Assets/Characters/Players/Knight/Run/Frames/RUN.png" id="8_ukyrk"]
 [ext_resource type="Texture2D" uid="uid://cvdywknsou1ba" path="res://Assets/Characters/Players/Knight/Jump/Frames/JUMP.png" id="9_fd4e3"]
-[ext_resource type="PackedScene" uid="uid://dbhf03yllxjac" path="res://Scenes/Components/animation_component.tscn" id="17_qqcod"]
-[ext_resource type="PackedScene" uid="uid://bklp5j06cegn0" path="res://Scenes/Components/jump_component.tscn" id="18_igrcy"]
+[ext_resource type="Script" uid="uid://dad5xhjwn6lno" path="res://Scripts/States/state_machine.gd" id="12_ukyrk"]
+[ext_resource type="Script" uid="uid://bl0o2fh2l5i7s" path="res://Scripts/States/player/idle.gd" id="13_ukyrk"]
+[ext_resource type="Script" uid="uid://tpy0cdkeoy1g" path="res://Scripts/States/player/running.gd" id="14_7dp3o"]
+[ext_resource type="Script" uid="uid://cqhcdx3eetkeq" path="res://Scripts/States/player/jumping.gd" id="15_fd4e3"]
+[ext_resource type="Script" uid="uid://de6iuxuaapldg" path="res://Scripts/States/player/falling.gd" id="16_qqcod"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_olqyp"]
 shader = ExtResource("1_olqyp")
@@ -565,13 +565,9 @@ _data = {
 &"playerHurt": SubResource("Animation_wpjfl")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "jump_component") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite") groups=["Player"]]
 script = ExtResource("1_3smsa")
-gravity_component = NodePath("GravityComponent")
-input_component = NodePath("InputComponents")
-movement_component = NodePath("MovementComponent")
-animation_component = NodePath("AnimationComponent")
-jump_component = NodePath("JumpComponent")
+sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_olqyp")
@@ -584,21 +580,8 @@ speed_scale = 1.5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_f1ek2")
 
-[node name="GravityComponent" parent="." instance=ExtResource("5_fkybt")]
-gravity = 1400.0
-
-[node name="InputComponents" parent="." instance=ExtResource("7_8erm5")]
-
-[node name="MovementComponent" parent="." instance=ExtResource("8_8erm5")]
-
-[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("17_qqcod")]
-sprite = NodePath("../AnimatedSprite2D")
-
-[node name="JumpComponent" parent="." instance=ExtResource("18_igrcy")]
-
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = -1200
-limit_top = -100
 limit_smoothed = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
@@ -624,6 +607,30 @@ libraries = {
 
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.55
+
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("12_ukyrk")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+script = ExtResource("13_ukyrk")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bnnjryhgj7khk"
+
+[node name="Running" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+script = ExtResource("14_7dp3o")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bnnjryhgj7khk"
+
+[node name="Jumping" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+script = ExtResource("15_fd4e3")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bnnjryhgj7khk"
+
+[node name="Falling" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+script = ExtResource("16_qqcod")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
 [connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_body_exited"]

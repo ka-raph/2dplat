@@ -1,42 +1,31 @@
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
-@export_subgroup("Nodes")
-@export var gravity_component: GravityComponent
-@export var input_component: InputComponent
-@export var movement_component: MovementComponent
-@export var animation_component: AnimationComponent
-@export var jump_component: JumpComponent
+@export var sprite: AnimatedSprite2D
+@export var speed := 150.0
+@export var gravity := 1000.0
+@export var jump_impulse := 380.0
+
 
 @onready var player_hurt_animation: AnimationPlayer = $PlayerHurtAnimation
 
-
+var health: float = 100.0
+var is_player_alive: bool = true
 var is_enemy_in_attack_range: bool = false
 var is_recovering: bool = false
 var is_hurt: bool = false
-var health: float = 100
-var is_player_alive: bool = true
 var push_direction: float = 1
 var attack_in_progress: bool = false
 
-
 func _physics_process(delta: float) -> void:
-	# Component listeners
-	gravity_component.handle_gravity(self, delta)
-	movement_component.handle_horizontal_movement(self, input_component.input_horizontal, is_recovering)
-	animation_component.handle_move_animation(attack_in_progress, is_hurt, input_component.input_horizontal)
-	animation_component.handle_jump_animation(jump_component.is_jumping, gravity_component.is_falling)
-	animation_component.handle_hurt_animation(is_hurt)
-	animation_component.handle_attack_animation(input_component.get_attack_input())
-	jump_component.handle_jump(self, input_component.get_jump_input())
-	if input_component.get_attack_input():
-		attack_in_progress = true
-		$AttackCooldown.start()
+	# TODORAF add attack
+	#if input_component.get_attack_input():
+		#attack_in_progress = true
+		#$AttackCooldown.start()
 	
-	# Basic listeners
+	# TODORAF state that line
 	enemy_touched()
-	move_and_slide()
 	
-	# TODO make dmg + attack in components
+	# TODO make dmg + attack in states
 	if health <= 0:
 		is_player_alive = false # Add handle respawn
 		health = 0

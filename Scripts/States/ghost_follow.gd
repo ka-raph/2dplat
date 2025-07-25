@@ -17,4 +17,4 @@ func Physics_Update(delta: float):
 		ghost.velocity = Vector2()
 	
 	if direction.length() > 200:
-		Transitioned.emit(self, "idle")
+		Transitioned.emit(self, "Idle")
