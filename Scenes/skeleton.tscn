@@ -1,5 +1,6 @@
-[gd_scene load_steps=82 format=3 uid="uid://byrtnvifwpxtg"]
+[gd_scene load_steps=83 format=3 uid="uid://byrtnvifwpxtg"]
 
+[ext_resource type="Script" uid="uid://blk02r5innn4l" path="res://Scripts/skeleton.gd" id="1_q1wii"]
 [ext_resource type="Texture2D" uid="uid://pbr1t1iws4pk" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/idle/Skeleton Idle.png" id="1_sfdtf"]
 [ext_resource type="Texture2D" uid="uid://bku744cnh5k4c" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/attack/Skeleton Attack.png" id="1_xbfmp"]
 [ext_resource type="Texture2D" uid="uid://ccnhf18pn83i0" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/dead/Skeleton Dead.png" id="2_q1wii"]
@@ -7,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://cxqg8wnp6tt3c" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/react/Skeleton React.png" id="5_clg8n"]
 [ext_resource type="Texture2D" uid="uid://k018asjcjtyv" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/walk/Skeleton Walk.png" id="6_pxjam"]
 [ext_resource type="Script" uid="uid://dad5xhjwn6lno" path="res://Scripts/States/state_machine.gd" id="7_k4moy"]
-[ext_resource type="Script" uid="uid://bstjhnfyc8ab8" path="res://Scripts/States/ghost_idle.gd" id="8_xdwqs"]
-[ext_resource type="Script" uid="uid://260sqmng1uuu" path="res://Scripts/States/ghost_follow.gd" id="9_l6q7w"]
+[ext_resource type="Script" uid="uid://xmj2gxh5p3do" path="res://Scripts/States/skeleton_follow.gd" id="9_q1wii"]
+[ext_resource type="Script" uid="uid://cwknin1le0pns" path="res://Scripts/States/skeleton_idle.gd" id="10_lw4xn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_anwrq"]
 atlas = ExtResource("1_xbfmp")
@@ -534,7 +535,8 @@ height = 28.0
 radius = 6.0
 height = 26.0
 
-[node name="skeleton" type="CharacterBody2D"]
+[node name="Skeleton" type="CharacterBody2D"]
+script = ExtResource("1_q1wii")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q6mll")
@@ -545,22 +547,24 @@ speed_scale = 1.5
 position = Vector2(-4, 5)
 shape = SubResource("CapsuleShape2D_n7d0q")
 
-[node name="State Machine" type="Node" parent="CollisionShape2D" node_paths=PackedStringArray("initial_state")]
-script = ExtResource("7_k4moy")
-initial_state = NodePath("Follow")
-
-[node name="Idle" type="Node" parent="CollisionShape2D/State Machine" node_paths=PackedStringArray("ghost")]
-script = ExtResource("8_xdwqs")
-ghost = NodePath("")
-metadata/_custom_type_script = "uid://bstjhnfyc8ab8"
-
-[node name="Follow" type="Node" parent="CollisionShape2D/State Machine" node_paths=PackedStringArray("ghost")]
-script = ExtResource("9_l6q7w")
-ghost = NodePath("")
-metadata/_custom_type_script = "uid://260sqmng1uuu"
-
 [node name="SkeletonHitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SkeletonHitbox"]
 position = Vector2(-4, 5)
 shape = SubResource("CapsuleShape2D_vmgqc")
+
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("7_k4moy")
+initial_state = NodePath("Follow")
+
+[node name="Follow" type="Node" parent="State Machine" node_paths=PackedStringArray("skeleton")]
+script = ExtResource("9_q1wii")
+skeleton = NodePath("../..")
+metadata/_custom_type_script = "uid://260sqmng1uuu"
+
+[node name="Idle" type="Node" parent="State Machine" node_paths=PackedStringArray("skeleton")]
+script = ExtResource("10_lw4xn")
+skeleton = NodePath("../..")
+
+[connection signal="body_entered" from="SkeletonHitbox" to="." method="_on_skeleton_hitbox_body_entered"]
+[connection signal="body_exited" from="SkeletonHitbox" to="." method="_on_skeleton_hitbox_body_exited"]
