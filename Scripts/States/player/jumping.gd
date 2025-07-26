@@ -5,6 +5,9 @@ func Enter() -> void:
 	player.sprite.play("jump")
 
 func Physics_Update(delta: float) -> void:
+	if player.is_attacking:
+		return
+
 	var input_direction_x := Input.get_axis("move_left", "move_right")
 	player.velocity.x = player.speed * input_direction_x
 	player.velocity.y += player.gravity * delta
@@ -13,9 +16,8 @@ func Physics_Update(delta: float) -> void:
 
 	if player.velocity.y >= 0:
 		Transitioned.emit(self, FALLING)
-
-func Handle_Input(event: InputEvent) -> void:
-	pass
+	elif Input.is_action_just_pressed("attack1"):
+		Transitioned.emit(self, ATTACK1)
 
 func handle_horizontal_flip(move_direction: float) -> void:
 	if move_direction == 0:

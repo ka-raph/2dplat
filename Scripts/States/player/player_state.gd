@@ -4,6 +4,7 @@ const IDLE = "Idle"
 const RUNNING = "Running"
 const JUMPING = "Jumping"
 const FALLING = "Falling"
+const ATTACK1 = "Attack1"
 
 @export var player: Player
 

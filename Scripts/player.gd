@@ -14,14 +14,9 @@ var is_enemy_in_attack_range: bool = false
 var is_recovering: bool = false
 var is_hurt: bool = false
 var push_direction: float = 1
-var attack_in_progress: bool = false
+var is_attacking: bool = false
 
 func _physics_process(delta: float) -> void:
-	# TODORAF add attack
-	#if input_component.get_attack_input():
-		#attack_in_progress = true
-		#$AttackCooldown.start()
-	
 	# TODORAF state that line
 	enemy_touched()
 	
@@ -67,5 +62,6 @@ func _on_hurt_cooldown_timeout() -> void:
 	is_hurt = false
 
 
-func _on_attack_cooldown_timeout() -> void:
-	attack_in_progress = false
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if $AnimatedSprite2D.animation == "attack1":
+		is_attacking = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://clbbapfr1s6p2"]
+[gd_scene load_steps=91 format=3 uid="uid://clbbapfr1s6p2"]
 
 [ext_resource type="Script" uid="uid://djro4tt85m0gc" path="res://Scripts/player.gd" id="1_3smsa"]
 [ext_resource type="Shader" uid="uid://bmieib6il15lm" path="res://Scenes/playerHurt.gdshader" id="1_olqyp"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://tpy0cdkeoy1g" path="res://Scripts/States/player/running.gd" id="14_7dp3o"]
 [ext_resource type="Script" uid="uid://cqhcdx3eetkeq" path="res://Scripts/States/player/jumping.gd" id="15_fd4e3"]
 [ext_resource type="Script" uid="uid://de6iuxuaapldg" path="res://Scripts/States/player/falling.gd" id="16_qqcod"]
+[ext_resource type="Script" uid="uid://phva0fi7kwfp" path="res://Scripts/States/player/attack_1.gd" id="17_qqcod"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_olqyp"]
 shader = ExtResource("1_olqyp")
@@ -295,7 +296,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yh6i2")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack1",
 "speed": 7.0
 }, {
@@ -565,6 +566,43 @@ _data = {
 &"playerHurt": SubResource("Animation_wpjfl")
 }
 
+[sub_resource type="Animation" id="Animation_qqcod"]
+resource_name = "attack1"
+length = 0.54
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_igrcy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fs7ks"]
+_data = {
+&"RESET": SubResource("Animation_igrcy"),
+&"attack1": SubResource("Animation_qqcod")
+}
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite") groups=["Player"]]
 script = ExtResource("1_3smsa")
 sprite = NodePath("AnimatedSprite2D")
@@ -573,8 +611,7 @@ sprite = NodePath("AnimatedSprite2D")
 material = SubResource("ShaderMaterial_olqyp")
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_8erm5")
-animation = &"death"
-frame_progress = 0.713893
+animation = &"attack1"
 speed_scale = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -605,9 +642,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_2ijsl")
 }
 
-[node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 0.55
-
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("12_ukyrk")
 initial_state = NodePath("Idle")
@@ -632,8 +666,17 @@ script = ExtResource("16_qqcod")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
+[node name="Attack1" type="Node" parent="State Machine"]
+script = ExtResource("17_qqcod")
+metadata/_custom_type_script = "uid://bnnjryhgj7khk"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fs7ks")
+}
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_body_exited"]
 [connection signal="timeout" from="RecoveringCooldown" to="." method="_on_damage_cooldown_timeout"]
 [connection signal="timeout" from="HurtCooldown" to="." method="_on_hurt_cooldown_timeout"]
-[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
