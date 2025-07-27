@@ -150,11 +150,10 @@ physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_wowpa")
 
 [node name="Game" type="Node2D"]
-position = Vector2(45, 111)
 
 [node name="Player" parent="." instance=ExtResource("1_qxrlw")]
 top_level = true
-position = Vector2(440, 164)
+position = Vector2(412, 49)
 
 [node name="World" type="Node2D" parent="."]
 
@@ -176,17 +175,8 @@ position = Vector2(45, 111)
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="World/Level/ParallaxBackground"]
 position = Vector2(138, 211)
 
+[node name="Skeleton" parent="World" instance=ExtResource("4_3dryh")]
+position = Vector2(502, 45)
+
 [node name="Ghost" parent="World" instance=ExtResource("3_wrm1d")]
-position = Vector2(630, -39)
-
-[node name="skeleton" parent="." instance=ExtResource("4_3dryh")]
-position = Vector2(533, 46)
-scale = Vector2(1.2, 1.2)
-
-[node name="skeleton2" parent="." instance=ExtResource("4_3dryh")]
-position = Vector2(306, -81)
-scale = Vector2(1.2, 1.2)
-
-[node name="skeleton3" parent="." instance=ExtResource("4_3dryh")]
-position = Vector2(80, -2)
-scale = Vector2(1.2, 1.2)
+position = Vector2(683, -59)

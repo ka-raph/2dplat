@@ -5,32 +5,36 @@ extends Node
 var current_state: State
 var states: Dictionary = {}
 
-func _ready():
-	for child in get_children():
-		if child is State:
-			states[child.name.to_lower()] = child
-			child.Transitioned.connect(on_child_transition)
+func _ready() -> void:
+	for state_node: State in find_children("*", "State"):
+		states[state_node.name] = state_node
+		state_node.Transitioned.connect(on_child_transition)
 	
 	if initial_state:
 		initial_state.Enter()
 		current_state = initial_state
 
-func _process(delta):
+# Player input
+func _unhandled_input(event: InputEvent) -> void:
+	if current_state and current_state.has_method("Handle_Input"):
+		current_state.Handle_Input(event)
+
+func _process(delta: float) -> void:
 	if current_state:
 		current_state.Update(delta)
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	if current_state:
 		current_state.Physics_Update(delta)
 
-
-func on_child_transition(state, new_state_name):
+func on_child_transition(state: State, new_state_name: String) -> void:
 	if state != current_state:
 		return
 	
-	var new_state: State = states.get(new_state_name.to_lower())
+	var new_state: State = states.get(new_state_name)
 	if !new_state:
-			return
+		printerr(owner.name + ": Trying to transition to state " + new_state_name + " but it doesn't exist.")
+		return
 	
 	if current_state:
 		current_state.Exit()

@@ -1,7 +1,7 @@
-class_name GhostIdle
+class_name SkeletonIdle
 extends State
 
-@export var ghost: CharacterBody2D
+@export var skeleton: CharacterBody2D
 @export var move_speed: float = 10.0
 
 var player: CharacterBody2D
@@ -10,7 +10,7 @@ var move_direction: Vector2
 var wander_time: float
 
 func randomize_wander():
-	move_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+	move_direction = Vector2(randf_range(-1, 1), 0).normalized()
 	wander_time = randf_range(1, 3)
 
 func Enter():
@@ -24,10 +24,10 @@ func Update(delta: float):
 		randomize_wander()
 
 func Physics_Update(delta: float):
-	if ghost:
-		ghost.velocity = move_direction * move_speed
+	if skeleton:
+		skeleton.velocity = move_direction * move_speed
 	
-	var direction = player.global_position - ghost.global_position
+	var direction = player.global_position - skeleton.global_position
 	
 	if direction.length() < 100:
 		Transitioned.emit(self, "Follow")
