@@ -5,6 +5,11 @@ func Enter() -> void:
 	player.is_attacking = true
 
 func Physics_Update(delta: float) -> void:
+	var input_direction_x := Input.get_axis("move_left", "move_right")
+	player.velocity.x = player.speed * input_direction_x
+	player.velocity.y += player.gravity * delta
+	player.move_and_slide()
+	
 	if player.is_attacking:
 		return
 	if not player.is_on_floor():

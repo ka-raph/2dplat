@@ -18,7 +18,7 @@
 [ext_resource type="Script" uid="uid://de6iuxuaapldg" path="res://Scripts/States/player/falling.gd" id="16_qqcod"]
 [ext_resource type="Script" uid="uid://phva0fi7kwfp" path="res://Scripts/States/player/attack_1.gd" id="17_qqcod"]
 [ext_resource type="Script" uid="uid://c0vt5evphs8si" path="res://Scripts/sword.gd" id="18_igrcy"]
-[ext_resource type="Script" uid="uid://cpt8qja5cv3l5" path="res://Scripts/fafing_collision_shape.gd" id="19_fs7ks"]
+[ext_resource type="Script" uid="uid://cpt8qja5cv3l5" path="res://Scripts/facing_collision_shape.gd" id="19_fs7ks"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_olqyp"]
 shader = ExtResource("1_olqyp")
