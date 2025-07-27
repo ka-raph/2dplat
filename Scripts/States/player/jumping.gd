@@ -14,7 +14,9 @@ func Physics_Update(delta: float) -> void:
 	handle_horizontal_flip(input_direction_x)
 	player.move_and_slide()
 
-	if player.velocity.y >= 0:
+	if player.is_enemy_in_attack_range:
+		Transitioned.emit(self, HURT)
+	elif player.velocity.y >= 0:
 		Transitioned.emit(self, FALLING)
 	elif Input.is_action_just_pressed("attack1"):
 		Transitioned.emit(self, ATTACK1)

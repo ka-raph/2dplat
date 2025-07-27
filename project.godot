@@ -13,6 +13,7 @@ config_version=5
 config/name="2Dplat"
 run/main_scene="uid://ckug35irxgdqd"
 config/features=PackedStringArray("4.4", "Mobile")
+config/icon="uid://pkbn6axmteii"
 
 [autoload]
 
@@ -23,7 +24,7 @@ Global="*res://Scripts/global.gd"
 window/size/viewport_width=320
 window/size/viewport_height=180
 window/size/window_width_override=1280
-window/size/window_height_override=720
+window/size/window_height_override=550
 window/stretch/mode="viewport"
 
 [input]

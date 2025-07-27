@@ -13,7 +13,9 @@ func Physics_Update(delta: float) -> void:
 	handle_horizontal_flip(input_direction_x)
 	player.move_and_slide()
 
-	if not player.is_on_floor():
+	if player.is_enemy_in_attack_range:
+		Transitioned.emit(self, HURT)
+	elif not player.is_on_floor():
 		Transitioned.emit(self, FALLING)
 	elif Input.is_action_just_pressed("attack1"):
 		Transitioned.emit(self, ATTACK1)
