@@ -5,6 +5,9 @@ const RUNNING = "Running"
 const JUMPING = "Jumping"
 const FALLING = "Falling"
 const ATTACK1 = "Attack1"
+const ATTACK2 = "Attack2"
+const ATTACK3 = "Attack3"
+const HURT = "Hurt"
 
 @export var player: Player
 

@@ -1,18 +1,18 @@
 extends PlayerState
 
 func Enter() -> void:
-	player.velocity.x = 0.0
-	player.sprite.play("idle")
+	player.sprite.play("hurt")
+	player.is_hurt = true
+	player.health -= 20
+	print("Player hur, health: " + str(player.health))
 
-func Physics_Update(_delta: float) -> void:
-	if player.is_attacking:
-		return
-
-	player.velocity.y += player.gravity * _delta
+func Physics_Update(delta: float) -> void:
+	player.velocity.x = player.push_direction * 100
+	player.velocity.y = -100
 	player.move_and_slide()
-
-	if player.is_enemy_in_attack_range:
-		Transitioned.emit(self, HURT)
+	
+	if player.is_hurt:
+		return
 	elif not player.is_on_floor():
 		Transitioned.emit(self, FALLING)
 	elif Input.is_action_just_pressed("attack1"):
@@ -21,3 +21,5 @@ func Physics_Update(_delta: float) -> void:
 		Transitioned.emit(self, JUMPING)
 	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
 		Transitioned.emit(self, RUNNING)
+	else:
+		Transitioned.emit(self, IDLE)

@@ -14,7 +14,9 @@ func Physics_Update(delta: float) -> void:
 	player.move_and_slide()
 
 
-	if Input.is_action_just_pressed("attack1"):
+	if player.is_enemy_in_attack_range:
+		Transitioned.emit(self, HURT)
+	elif Input.is_action_just_pressed("attack1"):
 		Transitioned.emit(self, ATTACK1)
 	if player.is_on_floor():
 		if is_equal_approx(input_direction_x, 0.0):

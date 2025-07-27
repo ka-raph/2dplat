@@ -7,7 +7,6 @@ extends Area2D
 
 func _ready() -> void:
 	monitoring = false
-	player.connect("facing_direction_changed", _on_player_facing_direction_changed)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("enemy"):

@@ -12,7 +12,9 @@ func Physics_Update(delta: float) -> void:
 	
 	if player.is_attacking:
 		return
-	if not player.is_on_floor():
+	elif player.is_enemy_in_attack_range:
+		Transitioned.emit(self, HURT)
+	elif not player.is_on_floor():
 		Transitioned.emit(self, FALLING)
 	elif Input.is_action_just_pressed("jump"):
 		Transitioned.emit(self, JUMPING)
