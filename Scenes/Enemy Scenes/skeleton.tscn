@@ -1,16 +1,16 @@
 [gd_scene load_steps=88 format=3 uid="uid://dl0af4fvrs7ms"]
 
-[ext_resource type="Script" uid="uid://blk02r5innn4l" path="res://Scripts/skeleton.gd" id="1_q1wii"]
+[ext_resource type="Script" uid="uid://blk02r5innn4l" path="res://Scripts/Enemies/Skeleton/skeleton.gd" id="1_q1wii"]
 [ext_resource type="Texture2D" uid="uid://pbr1t1iws4pk" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/idle/Skeleton Idle.png" id="1_sfdtf"]
 [ext_resource type="Texture2D" uid="uid://bku744cnh5k4c" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/attack/Skeleton Attack.png" id="1_xbfmp"]
-[ext_resource type="Shader" uid="uid://bmieib6il15lm" path="res://Scenes/Components/Shaders/enemyHurt.gdshader" id="2_lw4xn"]
+[ext_resource type="Shader" uid="uid://bmieib6il15lm" path="res://Shaders/enemyHurt.gdshader" id="2_lw4xn"]
 [ext_resource type="Texture2D" uid="uid://ccnhf18pn83i0" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/dead/Skeleton Dead.png" id="2_q1wii"]
 [ext_resource type="Texture2D" uid="uid://dicdm6cr1fg2v" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/hit/Skeleton Hit.png" id="3_lw4xn"]
 [ext_resource type="Texture2D" uid="uid://cxqg8wnp6tt3c" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/react/Skeleton React.png" id="5_clg8n"]
 [ext_resource type="Texture2D" uid="uid://k018asjcjtyv" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/walk/Skeleton Walk.png" id="6_pxjam"]
 [ext_resource type="Script" uid="uid://dad5xhjwn6lno" path="res://Scripts/state_machine.gd" id="7_k4moy"]
-[ext_resource type="Script" uid="uid://xmj2gxh5p3do" path="res://Scripts/States/skeleton_follow.gd" id="9_q1wii"]
-[ext_resource type="Script" uid="uid://cwknin1le0pns" path="res://Scripts/States/skeleton_idle.gd" id="10_lw4xn"]
+[ext_resource type="Script" uid="uid://xmj2gxh5p3do" path="res://Scripts/Enemies/Skeleton/States/follow.gd" id="9_q1wii"]
+[ext_resource type="Script" uid="uid://cwknin1le0pns" path="res://Scripts/Enemies/Skeleton/States/idle.gd" id="10_lw4xn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_clg8n"]
 shader = ExtResource("2_lw4xn")

@@ -1,7 +1,6 @@
 [gd_scene load_steps=95 format=3 uid="uid://oomo06yyac23"]
 
 [ext_resource type="Script" uid="uid://djro4tt85m0gc" path="res://Scripts/Player/player.gd" id="1_3smsa"]
-[ext_resource type="Shader" uid="uid://dgx2s7npsth05" path="res://Scenes/playerHurt.gdshader" id="1_olqyp"]
 [ext_resource type="Texture2D" uid="uid://dsnxc4vevce56" path="res://Assets/Characters/Players/Knight/Attack/Attack1/Frames/ATTACK 1.png" id="3_7dp3o"]
 [ext_resource type="Texture2D" uid="uid://cs5ockca7qsok" path="res://Assets/Characters/Players/Knight/Attack/Attack2/Frames/ATTACK 2.png" id="4_7dp3o"]
 [ext_resource type="Texture2D" uid="uid://kr22mwaam8mi" path="res://Assets/Characters/Players/Knight/Attack/Attack3/Frames/ATTACK 3.png" id="5_h4iuc"]
@@ -12,19 +11,16 @@
 [ext_resource type="Texture2D" uid="uid://dx8aeijbye2iu" path="res://Assets/Characters/Players/Knight/Run/Frames/RUN.png" id="8_ukyrk"]
 [ext_resource type="Texture2D" uid="uid://cvdywknsou1ba" path="res://Assets/Characters/Players/Knight/Jump/Frames/JUMP.png" id="9_fd4e3"]
 [ext_resource type="Script" uid="uid://dad5xhjwn6lno" path="res://Scripts/state_machine.gd" id="12_ukyrk"]
-[ext_resource type="Script" uid="uid://bl0o2fh2l5i7s" path="res://Scripts/States/player/idle.gd" id="13_ukyrk"]
-[ext_resource type="Script" uid="uid://tpy0cdkeoy1g" path="res://Scripts/States/player/running.gd" id="14_7dp3o"]
-[ext_resource type="Script" uid="uid://cqhcdx3eetkeq" path="res://Scripts/States/player/jumping.gd" id="15_fd4e3"]
-[ext_resource type="Script" uid="uid://de6iuxuaapldg" path="res://Scripts/States/player/falling.gd" id="16_qqcod"]
-[ext_resource type="Script" uid="uid://phva0fi7kwfp" path="res://Scripts/States/player/attack_1.gd" id="17_qqcod"]
-[ext_resource type="Script" uid="uid://c0vt5evphs8si" path="res://Scripts/sword.gd" id="18_igrcy"]
-[ext_resource type="Script" uid="uid://rdewrnxtm4we" path="res://Scripts/States/player/hurt.gd" id="18_l6n3p"]
+[ext_resource type="Script" uid="uid://bl0o2fh2l5i7s" path="res://Scripts/Player/States/idle.gd" id="13_ukyrk"]
+[ext_resource type="Script" uid="uid://tpy0cdkeoy1g" path="res://Scripts/Player/States/running.gd" id="14_7dp3o"]
+[ext_resource type="Script" uid="uid://cqhcdx3eetkeq" path="res://Scripts/Player/States/jumping.gd" id="15_fd4e3"]
+[ext_resource type="Script" uid="uid://de6iuxuaapldg" path="res://Scripts/Player/States/falling.gd" id="16_qqcod"]
+[ext_resource type="Script" uid="uid://phva0fi7kwfp" path="res://Scripts/Player/States/attack_1.gd" id="17_qqcod"]
+[ext_resource type="Script" uid="uid://c0vt5evphs8si" path="res://Scripts/Weapons/sword.gd" id="18_igrcy"]
+[ext_resource type="Script" uid="uid://rdewrnxtm4we" path="res://Scripts/Player/States/hurt.gd" id="18_l6n3p"]
 [ext_resource type="Script" uid="uid://cpt8qja5cv3l5" path="res://Scripts/facing_collision_shape.gd" id="19_fs7ks"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_olqyp"]
-shader = ExtResource("1_olqyp")
-shader_parameter/flash_color = Color(0.956942, 0, 0.174562, 1)
-shader_parameter/flash_value = 0.0
+[ext_resource type="Script" uid="uid://dd1ncvq7munyw" path="res://Scripts/Player/Components/movement_component.gd" id="20_xgk0j"]
+[ext_resource type="Script" uid="uid://b5wddnby30ava" path="res://Scripts/Player/Components/input_component.gd" id="21_yaseq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_83xs0"]
 atlas = ExtResource("3_7dp3o")
@@ -580,7 +576,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [0]
 }
 
@@ -596,7 +592,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [0, 1, 2, 3, 4, 5]
 }
 
@@ -609,12 +605,13 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqcod"]
 size = Vector2(19, 16)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "input_component", "sprite") groups=["Player"]]
 script = ExtResource("1_3smsa")
+movement_component = NodePath("Components/MovementComponent")
+input_component = NodePath("Components/InputComponent")
 sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_olqyp")
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_8erm5")
 animation = &"hurt"
@@ -626,12 +623,12 @@ shape = SubResource("CapsuleShape2D_f1ek2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = -1200
-limit_top = -100
+limit_top = -500
 limit_smoothed = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_horizontal_offset = 0.91
-drag_vertical_offset = 0.4
+drag_vertical_offset = -0.8
 
 [node name="PlayerHitbox" type="Area2D" parent="."]
 
@@ -695,6 +692,15 @@ shape = SubResource("RectangleShape2D_qqcod")
 script = ExtResource("19_fs7ks")
 facing_left_postion = Vector2(-20, -1)
 facing_right_postion = Vector2(20, -1)
+
+[node name="Components" type="Node" parent="."]
+
+[node name="MovementComponent" type="Node" parent="Components" node_paths=PackedStringArray("player")]
+script = ExtResource("20_xgk0j")
+player = NodePath("../..")
+
+[node name="InputComponent" type="Node" parent="Components"]
+script = ExtResource("21_yaseq")
 
 [connection signal="facing_direction_changed" from="." to="Sword" method="_on_player_facing_direction_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

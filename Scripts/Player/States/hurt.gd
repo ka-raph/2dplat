@@ -14,12 +14,12 @@ func Physics_Update(delta: float) -> void:
 	if player.is_hurt:
 		return
 	elif not player.is_on_floor():
-		Transitioned.emit(self, FALLING)
-	elif Input.is_action_just_pressed("attack1"):
-		Transitioned.emit(self, ATTACK1)
-	elif Input.is_action_just_pressed("jump"):
-		Transitioned.emit(self, JUMPING)
-	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
-		Transitioned.emit(self, RUNNING)
+		Transition(self, FALLING)
+	elif player.input_component.get_attack1_input():
+		Transition(self, ATTACK1)
+	elif player.input_component.get_jump_input():
+		Transition(self, JUMPING)
+	elif not is_equal_approx(player.input_component.get_input_direction_x(), 0.0):
+		Transition(self, RUNNING)
 	else:
-		Transitioned.emit(self, IDLE)
+		Transition(self, IDLE)
