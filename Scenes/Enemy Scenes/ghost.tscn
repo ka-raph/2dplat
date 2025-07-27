@@ -1,16 +1,16 @@
 [gd_scene load_steps=19 format=3 uid="uid://bgx7ssspwa7fe"]
 
 [ext_resource type="Texture2D" uid="uid://c7fsnct135d3e" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export1.png" id="1_37jdp"]
-[ext_resource type="Script" uid="uid://df51dydrmix5d" path="res://Scripts/Ghost/ghost.gd" id="1_yxsxn"]
-[ext_resource type="Shader" uid="uid://bmieib6il15lm" path="res://Scenes/Components/Shaders/enemyHurt.gdshader" id="2_vdkt2"]
+[ext_resource type="Script" uid="uid://df51dydrmix5d" path="res://Scripts/Enemies/Ghost/ghost.gd" id="1_yxsxn"]
+[ext_resource type="Shader" uid="uid://bmieib6il15lm" path="res://Shaders/enemyHurt.gdshader" id="2_vdkt2"]
 [ext_resource type="Texture2D" uid="uid://6y0hvi01lwit" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export2.png" id="2_yxsxn"]
 [ext_resource type="Texture2D" uid="uid://bb6yer5i0j5yk" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export3.png" id="3_ekpol"]
 [ext_resource type="Texture2D" uid="uid://u7fduug0lpc0" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export4.png" id="4_qtrkw"]
 [ext_resource type="Texture2D" uid="uid://cm7cxwe1xb6fr" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export5.png" id="5_7545c"]
 [ext_resource type="Texture2D" uid="uid://he46g18frq3c" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export6.png" id="6_p2m0j"]
 [ext_resource type="Script" uid="uid://dad5xhjwn6lno" path="res://Scripts/state_machine.gd" id="8_st3at"]
-[ext_resource type="Script" uid="uid://bstjhnfyc8ab8" path="res://Scripts/Ghost/ghost_idle.gd" id="9_7hbae"]
-[ext_resource type="Script" uid="uid://260sqmng1uuu" path="res://Scripts/Ghost/ghost_follow.gd" id="10_xoekh"]
+[ext_resource type="Script" uid="uid://bstjhnfyc8ab8" path="res://Scripts/Enemies/Ghost/States/idle.gd" id="9_7hbae"]
+[ext_resource type="Script" uid="uid://260sqmng1uuu" path="res://Scripts/Enemies/Ghost/States/follow.gd" id="10_xoekh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_prwv0"]
 shader = ExtResource("2_vdkt2")
