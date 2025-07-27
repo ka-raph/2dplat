@@ -5,7 +5,6 @@ class_name Player extends CharacterBody2D
 @export var gravity := 1000.0
 @export var jump_impulse := 380.0
 
-
 @onready var player_hurt_animation: AnimationPlayer = $PlayerHurtAnimation
 
 var health: float = 100.0
@@ -15,6 +14,8 @@ var is_recovering: bool = false
 var is_hurt: bool = false
 var push_direction: float = 1
 var is_attacking: bool = false
+
+signal facing_direction_changed(is_facing_right: bool)
 
 func _physics_process(delta: float) -> void:
 	# TODORAF state that line

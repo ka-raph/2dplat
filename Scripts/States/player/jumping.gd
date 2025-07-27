@@ -24,3 +24,4 @@ func handle_horizontal_flip(move_direction: float) -> void:
 		return
 		
 	player.sprite.flip_h = false if move_direction > 0 else true
+	player.emit_signal("facing_direction_changed", !player.sprite.flip_h)

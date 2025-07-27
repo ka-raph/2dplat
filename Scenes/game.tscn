@@ -175,8 +175,8 @@ position = Vector2(45, 111)
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="World/Level/ParallaxBackground"]
 position = Vector2(138, 211)
 
-[node name="Ghost" parent="World" instance=ExtResource("3_wrm1d")]
-position = Vector2(545, -91)
-
 [node name="Skeleton" parent="World" instance=ExtResource("4_3dryh")]
-position = Vector2(839, 44)
+position = Vector2(502, 45)
+
+[node name="Ghost" parent="World" instance=ExtResource("3_wrm1d")]
+position = Vector2(683, -59)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://clbbapfr1s6p2"]
+[gd_scene load_steps=94 format=3 uid="uid://clbbapfr1s6p2"]
 
 [ext_resource type="Script" uid="uid://djro4tt85m0gc" path="res://Scripts/player.gd" id="1_3smsa"]
 [ext_resource type="Shader" uid="uid://bmieib6il15lm" path="res://Scenes/playerHurt.gdshader" id="1_olqyp"]
@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://cqhcdx3eetkeq" path="res://Scripts/States/player/jumping.gd" id="15_fd4e3"]
 [ext_resource type="Script" uid="uid://de6iuxuaapldg" path="res://Scripts/States/player/falling.gd" id="16_qqcod"]
 [ext_resource type="Script" uid="uid://phva0fi7kwfp" path="res://Scripts/States/player/attack_1.gd" id="17_qqcod"]
+[ext_resource type="Script" uid="uid://c0vt5evphs8si" path="res://Scripts/sword.gd" id="18_igrcy"]
+[ext_resource type="Script" uid="uid://cpt8qja5cv3l5" path="res://Scripts/fafing_collision_shape.gd" id="19_fs7ks"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_olqyp"]
 shader = ExtResource("1_olqyp")
@@ -298,7 +300,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack1",
-"speed": 7.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -523,11 +525,12 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1ek2"]
-radius = 8.0
-height = 20.0
+radius = 9.0
+height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_igrcy"]
-radius = 12.0
+radius = 11.0
+height = 32.0
 
 [sub_resource type="Animation" id="Animation_bi64h"]
 length = 0.001
@@ -566,6 +569,21 @@ _data = {
 &"playerHurt": SubResource("Animation_wpjfl")
 }
 
+[sub_resource type="Animation" id="Animation_igrcy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_qqcod"]
 resource_name = "attack1"
 length = 0.54
@@ -582,26 +600,14 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_igrcy"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fs7ks"]
 _data = {
 &"RESET": SubResource("Animation_igrcy"),
 &"attack1": SubResource("Animation_qqcod")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqcod"]
+size = Vector2(19, 16)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite") groups=["Player"]]
 script = ExtResource("1_3smsa")
@@ -615,6 +621,7 @@ animation = &"attack1"
 speed_scale = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -1)
 shape = SubResource("CapsuleShape2D_f1ek2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -628,7 +635,7 @@ drag_vertical_offset = 0.4
 [node name="PlayerHitbox" type="Area2D" parent="."]
 
 [node name="PlayerHitboxShape" type="CollisionShape2D" parent="PlayerHitbox"]
-position = Vector2(-1, -1)
+position = Vector2(1, -2)
 shape = SubResource("CapsuleShape2D_igrcy")
 
 [node name="RecoveringCooldown" type="Timer" parent="."]
@@ -675,8 +682,25 @@ libraries = {
 &"": SubResource("AnimationLibrary_fs7ks")
 }
 
+[node name="Sword" type="Area2D" parent="." node_paths=PackedStringArray("animatedSprite", "player", "facing_shape")]
+monitoring = false
+script = ExtResource("18_igrcy")
+animatedSprite = NodePath("../AnimatedSprite2D")
+player = NodePath("..")
+facing_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
+position = Vector2(20, -1)
+shape = SubResource("RectangleShape2D_qqcod")
+script = ExtResource("19_fs7ks")
+facing_left_postion = Vector2(-20, -1)
+facing_right_postion = Vector2(20, -1)
+
+[connection signal="facing_direction_changed" from="." to="Sword" method="_on_player_facing_direction_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="Sword" method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_body_exited"]
 [connection signal="timeout" from="RecoveringCooldown" to="." method="_on_damage_cooldown_timeout"]
 [connection signal="timeout" from="HurtCooldown" to="." method="_on_hurt_cooldown_timeout"]
+[connection signal="body_entered" from="Sword" to="Sword" method="_on_body_entered"]
