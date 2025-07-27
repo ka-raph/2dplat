@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://dqxouebam212f"]
+[gd_scene load_steps=9 format=4 uid="uid://ckug35irxgdqd"]
 
-[ext_resource type="PackedScene" uid="uid://oomo06yyac23" path="res://Scenes/player.tscn" id="1_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://oomo06yyac23" path="res://Scenes/Player Scenes/player.tscn" id="1_qxrlw"]
 [ext_resource type="Texture2D" uid="uid://67gbw0u0dcdu" path="res://Assets/Environments/Fort of Illusion/Fort of Illusion Files/Layers/tileset.png" id="2_qxrlw"]
-[ext_resource type="PackedScene" uid="uid://b4c8txgicp4ve" path="res://Scenes/ghost.tscn" id="3_wrm1d"]
-[ext_resource type="PackedScene" uid="uid://byrtnvifwpxtg" path="res://Scenes/skeleton.tscn" id="4_3dryh"]
+[ext_resource type="PackedScene" uid="uid://bgx7ssspwa7fe" path="res://Scenes/Enemy Scenes/ghost.tscn" id="3_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://dl0af4fvrs7ms" path="res://Scenes/Enemy Scenes/skeleton.tscn" id="4_3dryh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
 texture = ExtResource("2_qxrlw")
@@ -171,11 +171,8 @@ position = Vector2(45, 111)
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="World/Level/ParallaxBackground"]
 position = Vector2(138, 211)
 
-[node name="Ghost" parent="World/Level" instance=ExtResource("3_wrm1d")]
-position = Vector2(99, -36)
+[node name="Player" parent="World" instance=ExtResource("1_qxrlw")]
 
-[node name="Skeleton" parent="World/Level" instance=ExtResource("4_3dryh")]
-position = Vector2(-58, -1)
+[node name="Ghost" parent="World" instance=ExtResource("3_wrm1d")]
 
-[node name="Player" parent="." instance=ExtResource("1_qxrlw")]
-position = Vector2(-195, 1)
+[node name="Skeleton" parent="World" instance=ExtResource("4_3dryh")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://byrtnvifwpxtg"]
+[gd_scene load_steps=88 format=3 uid="uid://dl0af4fvrs7ms"]
 
 [ext_resource type="Script" uid="uid://blk02r5innn4l" path="res://Scripts/skeleton.gd" id="1_q1wii"]
 [ext_resource type="Texture2D" uid="uid://pbr1t1iws4pk" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/idle/Skeleton Idle.png" id="1_sfdtf"]
