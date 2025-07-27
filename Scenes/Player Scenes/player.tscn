@@ -1,0 +1,238 @@
+[gd_scene load_steps=29 format=3 uid="uid://clbbapfr1s6p2"]
+
+[ext_resource type="Script" uid="uid://djro4tt85m0gc" path="res://Scripts/Player/player.gd" id="1_3smsa"]
+[ext_resource type="Shader" uid="uid://bmieib6il15lm" path="res://Scenes/Components/Shaders/enemyHurt.gdshader" id="1_olqyp"]
+[ext_resource type="Texture2D" uid="uid://dsnxc4vevce56" path="res://Assets/Characters/Players/Knight/Attack/Attack1/Frames/ATTACK 1.png" id="3_7dp3o"]
+[ext_resource type="Texture2D" uid="uid://cs5ockca7qsok" path="res://Assets/Characters/Players/Knight/Attack/Attack2/Frames/ATTACK 2.png" id="4_7dp3o"]
+[ext_resource type="Texture2D" uid="uid://kr22mwaam8mi" path="res://Assets/Characters/Players/Knight/Attack/Attack3/Frames/ATTACK 3.png" id="5_h4iuc"]
+[ext_resource type="Texture2D" uid="uid://dqjhffpinhmnw" path="res://Assets/Characters/Players/Knight/Defend/Frames/DEFEND.png" id="6_fd4e3"]
+[ext_resource type="Texture2D" uid="uid://dnnkudchyg5bm" path="res://Assets/Characters/Players/Knight/Hurt/Frames/HURT.png" id="6_h4iuc"]
+[ext_resource type="Texture2D" uid="uid://yvubt85eblxv" path="res://Assets/Characters/Players/Knight/Idle/Frames/IDLE.png" id="6_igrcy"]
+[ext_resource type="Texture2D" uid="uid://b3qsrlllfpeki" path="res://Assets/Characters/Players/Knight/Dead/Frames/DEATH.png" id="6_qqcod"]
+[ext_resource type="Texture2D" uid="uid://dx8aeijbye2iu" path="res://Assets/Characters/Players/Knight/Run/Frames/RUN.png" id="8_ukyrk"]
+[ext_resource type="Texture2D" uid="uid://cvdywknsou1ba" path="res://Assets/Characters/Players/Knight/Jump/Frames/JUMP.png" id="9_fd4e3"]
+[ext_resource type="Script" uid="uid://dad5xhjwn6lno" path="res://Scripts/state_machine.gd" id="12_ukyrk"]
+[ext_resource type="Script" uid="uid://bl0o2fh2l5i7s" path="res://Scripts/Player/States/idle.gd" id="13_ukyrk"]
+[ext_resource type="Script" uid="uid://tpy0cdkeoy1g" path="res://Scripts/Player/States/running.gd" id="14_7dp3o"]
+[ext_resource type="Script" uid="uid://cqhcdx3eetkeq" path="res://Scripts/Player/States/jumping.gd" id="15_fd4e3"]
+[ext_resource type="Script" uid="uid://de6iuxuaapldg" path="res://Scripts/Player/States/falling.gd" id="16_qqcod"]
+[ext_resource type="Script" uid="uid://phva0fi7kwfp" path="res://Scripts/Player/States/attack_1.gd" id="17_qqcod"]
+[ext_resource type="Script" uid="uid://c0vt5evphs8si" path="res://Scripts/Player/Weapons/Sword/sword.gd" id="18_igrcy"]
+[ext_resource type="Script" uid="uid://cpt8qja5cv3l5" path="res://Scripts/Colliders/facing_collision_shape.gd" id="19_fs7ks"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_olqyp"]
+shader = ExtResource("1_olqyp")
+shader_parameter/flash_color = Color(0.956942, 0, 0.174562, 1)
+shader_parameter/flash_value = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8erm5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fd4e3")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_l6n3p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_olqyp")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vgqql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_fkybt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x3wgy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3smsa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qqcod")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_igrcy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_fs7ks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_l6n3p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_olqyp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_wpjfl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_bi64h")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x3os8"]
+size = Vector2(12, 34.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xgk0j"]
+size = Vector2(13, 34)
+
+[sub_resource type="Animation" id="Animation_bi64h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_wpjfl"]
+resource_name = "playerHurt"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.01, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ijsl"]
+_data = {
+&"RESET": SubResource("Animation_bi64h"),
+&"playerHurt": SubResource("Animation_wpjfl")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "input_component", "movement_component", "animation_component", "jump_component") groups=["Player"]]
+script = ExtResource("1_3smsa")
+gravity_component = NodePath("GravityComponent")
+input_component = NodePath("InputComponents")
+movement_component = NodePath("MovementComponent")
+animation_component = NodePath("AnimationComponent")
+jump_component = NodePath("JumpComponent")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_olqyp")
+position = Vector2(0, -5)
+sprite_frames = SubResource("SpriteFrames_8erm5")
+animation = &"fall"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -6.75)
+shape = SubResource("RectangleShape2D_x3os8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = -1200
+limit_top = -100
+limit_smoothed = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_horizontal_offset = 0.91
+drag_vertical_offset = 0.4
+
+[node name="PlayerHitbox" type="Area2D" parent="."]
+
+[node name="PlayerHitboxShape" type="CollisionShape2D" parent="PlayerHitbox"]
+position = Vector2(-1.5, -7)
+shape = SubResource("RectangleShape2D_xgk0j")
+
+[node name="RecoveringCooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="HurtCooldown" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="PlayerHurtAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2ijsl")
+}
+
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("12_ukyrk")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+script = ExtResource("13_ukyrk")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bnnjryhgj7khk"
+
+[node name="Running" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+script = ExtResource("14_7dp3o")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bnnjryhgj7khk"
+
+[node name="Jumping" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+script = ExtResource("15_fd4e3")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bnnjryhgj7khk"
+
+[node name="Falling" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+script = ExtResource("16_qqcod")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bnnjryhgj7khk"
+
+[node name="Attack1" type="Node" parent="State Machine"]
+script = ExtResource("17_qqcod")
+metadata/_custom_type_script = "uid://bnnjryhgj7khk"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fs7ks")
+}
+
+[node name="Sword" type="Area2D" parent="." node_paths=PackedStringArray("animatedSprite", "player", "facing_shape")]
+monitoring = false
+script = ExtResource("18_igrcy")
+animatedSprite = NodePath("../AnimatedSprite2D")
+player = NodePath("..")
+facing_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
+position = Vector2(18, -5)
+shape = SubResource("RectangleShape2D_qqcod")
+script = ExtResource("19_fs7ks")
+facing_left_postion = Vector2(-20, -1)
+facing_right_postion = Vector2(20, -1)
+
+[connection signal="facing_direction_changed" from="." to="Sword" method="_on_player_facing_direction_changed"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="Sword" method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="timeout" from="RecoveringCooldown" to="." method="_on_damage_cooldown_timeout"]
+[connection signal="timeout" from="HurtCooldown" to="." method="_on_hurt_cooldown_timeout"]
