@@ -49,6 +49,6 @@ func player() -> void:
 func hit(damage: float, push_direction_x: float, push_direction_y: float) -> void:
 	health -= damage
 	player_hurt_animation.play("hurt")
-	velocity.x = push_direction_x * 1000
-	velocity.y = push_direction_y * 0 # Veritcal push looks stupid to me, what do you think?
+	velocity.x = push_direction_x * 1100
+	velocity.y = push_direction_y * -100 # Veritcal push looks stupid to me, what do you think?
 	print("Player took " + str(damage) + " damage, current health = " + str(health))
