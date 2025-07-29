@@ -8,6 +8,7 @@ class_name Player extends CharacterBody2D
 @export var jump_impulse := 380.0
 
 @onready var player_hurt_animation: AnimationPlayer = $PlayerHurtAnimation
+@onready var state_machine = $"State Machine"
 
 var health: float = 100.0
 var is_player_alive: bool = true
@@ -20,10 +21,9 @@ signal facing_direction_changed(is_facing_right: bool)
 
 func _physics_process(delta: float) -> void:	
 	if health <= 0:
-		is_player_alive = false # Add handle respawn
 		health = 0
-		print("player is dead")
-		get_tree().reload_current_scene()
+		if state_machine.current_state.name != "Death":
+			state_machine.on_child_transition(state_machine.current_state, "Death")
 
 func _on_player_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("enemy"):
@@ -42,3 +42,13 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 func update_facing_direction(is_facing_right: bool) -> void:
 	self.emit_signal("facing_direction_changed", is_facing_right)
+
+func player() -> void:
+	pass
+
+func hit(damage: float, push_direction_x: float, push_direction_y: float) -> void:
+	health -= damage
+	player_hurt_animation.play("hurt")
+	velocity.x = push_direction_x * 1000
+	velocity.y = push_direction_y * 0 # Veritcal push looks stupid to me, what do you think?
+	print("Player took " + str(damage) + " damage, current health = " + str(health))

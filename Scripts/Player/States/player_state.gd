@@ -8,6 +8,7 @@ const ATTACK1 = "Attack1"
 const ATTACK2 = "Attack2"
 const ATTACK3 = "Attack3"
 const HURT = "Hurt"
+const DEATH = "Death"
 
 @export var player: Player
 

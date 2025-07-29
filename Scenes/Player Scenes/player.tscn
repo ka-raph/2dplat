@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://oomo06yyac23"]
+[gd_scene load_steps=96 format=3 uid="uid://oomo06yyac23"]
 
 [ext_resource type="Script" uid="uid://djro4tt85m0gc" path="res://Scripts/Player/player.gd" id="1_3smsa"]
 [ext_resource type="Texture2D" uid="uid://dsnxc4vevce56" path="res://Assets/Characters/Players/Knight/Attack/Attack1/Frames/ATTACK 1.png" id="3_7dp3o"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://cqhcdx3eetkeq" path="res://Scripts/Player/States/jumping.gd" id="15_fd4e3"]
 [ext_resource type="Script" uid="uid://de6iuxuaapldg" path="res://Scripts/Player/States/falling.gd" id="16_qqcod"]
 [ext_resource type="Script" uid="uid://phva0fi7kwfp" path="res://Scripts/Player/States/attack_1.gd" id="17_qqcod"]
+[ext_resource type="Script" uid="uid://ea55hu7xp236" path="res://Scripts/Player/States/death.gd" id="18_6vxdp"]
 [ext_resource type="Script" uid="uid://c0vt5evphs8si" path="res://Scripts/Weapons/sword.gd" id="18_igrcy"]
 [ext_resource type="Script" uid="uid://rdewrnxtm4we" path="res://Scripts/Player/States/hurt.gd" id="18_l6n3p"]
 [ext_resource type="Script" uid="uid://cpt8qja5cv3l5" path="res://Scripts/facing_collision_shape.gd" id="19_fs7ks"]
@@ -614,7 +615,7 @@ sprite = NodePath("AnimatedSprite2D")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_8erm5")
-animation = &"attack1"
+animation = &"death"
 speed_scale = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -673,6 +674,9 @@ metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 script = ExtResource("18_l6n3p")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
+
+[node name="Death" type="Node" parent="State Machine"]
+script = ExtResource("18_6vxdp")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

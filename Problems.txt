@@ -1,0 +1,2 @@
+Found an issue with the animated skeleton, some animations are further back than the rest and is really
+difficult to fix in the engine. It is maybe a none issue since it is just placeholder art though.

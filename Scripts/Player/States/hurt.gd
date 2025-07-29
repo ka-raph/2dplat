@@ -3,15 +3,17 @@ extends PlayerState
 func Enter() -> void:
 	player.sprite.play("hurt")
 	player.is_hurt = true
-	player.health -= 20
-	print("Player hur, health: " + str(player.health))
+	print("Player hurt, health: " + str(player.health))
 
 func Physics_Update(delta: float) -> void:
 	player.velocity.x = player.push_direction * 100
 	player.velocity.y = -100
 	player.move_and_slide()
 	
-	if player.is_hurt:
+	# Make the death state the prio state for all state files
+	if player.health <= 0:
+		Transition(self, DEATH)
+	elif player.is_hurt:
 		return
 	elif not player.is_on_floor():
 		Transition(self, FALLING)

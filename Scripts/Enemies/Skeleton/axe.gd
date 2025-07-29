@@ -15,14 +15,11 @@ func _on_body_entered(body: Node2D) -> void:
 		body.hit(damage, push_direction_x, push_direction_y)
 		print(body.name + " took " + str(damage) + "dmg, current health = " + str(body.health))
 
-
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if animatedSprite.animation == "attack" and animatedSprite.frame == 7:
 		monitoring = true
 	else:
 		monitoring = false
-
-
 
 func _on_enemy_facing_direction_changed(is_facing_right: bool) -> void:
 	if is_facing_right:
