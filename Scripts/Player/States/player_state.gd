@@ -8,6 +8,7 @@ const ATTACK1 = "Attack1"
 const ATTACK2 = "Attack2"
 const ATTACK3 = "Attack3"
 const HURT = "Hurt"
+const PARRY = "Parry"
 
 @export var player: Player
 
@@ -16,5 +17,5 @@ func _ready() -> void:
 	player = owner as Player
 	assert(player != null, "The PlayerState type must be used only in the player scene. It needs the owner to be a Player node.")
 
-func handle_input(_event: InputEvent) -> void:
+func Handle_Input(_event: InputEvent) -> void:
 	pass

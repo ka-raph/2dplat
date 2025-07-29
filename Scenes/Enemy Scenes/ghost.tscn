@@ -1,14 +1,20 @@
-[gd_scene load_steps=19 format=3 uid="uid://bgx7ssspwa7fe"]
+[gd_scene load_steps=25 format=3 uid="uid://bgx7ssspwa7fe"]
 
 [ext_resource type="Texture2D" uid="uid://c7fsnct135d3e" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export1.png" id="1_37jdp"]
 [ext_resource type="Script" uid="uid://df51dydrmix5d" path="res://Scripts/Enemies/Ghost/ghost.gd" id="1_yxsxn"]
 [ext_resource type="Shader" uid="uid://bmieib6il15lm" path="res://Shaders/enemyHurt.gdshader" id="2_vdkt2"]
 [ext_resource type="Texture2D" uid="uid://6y0hvi01lwit" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export2.png" id="2_yxsxn"]
 [ext_resource type="Texture2D" uid="uid://bb6yer5i0j5yk" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export3.png" id="3_ekpol"]
+[ext_resource type="Texture2D" uid="uid://cwx81eb6xpqcx" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/Particles/transparent-particles-export1.png" id="3_rs7o7"]
 [ext_resource type="Texture2D" uid="uid://u7fduug0lpc0" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export4.png" id="4_qtrkw"]
+[ext_resource type="Texture2D" uid="uid://b13chsmg5ifcg" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/Particles/transparent-particles-export2.png" id="4_te3g6"]
 [ext_resource type="Texture2D" uid="uid://cm7cxwe1xb6fr" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export5.png" id="5_7545c"]
+[ext_resource type="Texture2D" uid="uid://d1tm46aonou7c" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/Particles/transparent-particles-export3.png" id="5_pmkaq"]
+[ext_resource type="Texture2D" uid="uid://ba2vn5plkiqgx" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/Particles/transparent-particles-export4.png" id="6_n21mg"]
 [ext_resource type="Texture2D" uid="uid://he46g18frq3c" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/No-Particles/transparent-no-particles-export6.png" id="6_p2m0j"]
+[ext_resource type="Texture2D" uid="uid://t3ah3auc78sf" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/Particles/transparent-particles-export5.png" id="7_whfc7"]
 [ext_resource type="Script" uid="uid://dad5xhjwn6lno" path="res://Scripts/state_machine.gd" id="8_st3at"]
+[ext_resource type="Texture2D" uid="uid://kasrruag28mv" path="res://Assets/Characters/Enemies and NPC/enemy-ghost/Sprites/Particles/transparent-particles-export6.png" id="8_vr3wr"]
 [ext_resource type="Script" uid="uid://bstjhnfyc8ab8" path="res://Scripts/Enemies/Ghost/States/idle.gd" id="9_7hbae"]
 [ext_resource type="Script" uid="uid://260sqmng1uuu" path="res://Scripts/Enemies/Ghost/States/follow.gd" id="10_xoekh"]
 
@@ -19,6 +25,29 @@ shader_parameter/flash_value = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pvgmm"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rs7o7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_te3g6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pmkaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_n21mg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_whfc7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_vr3wr")
+}],
+"loop": true,
+"name": &"follow",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_37jdp")
@@ -44,10 +73,10 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_37jdp"]
-radius = 12.0
+radius = 9.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xoekh"]
-radius = 17.0294
+[sub_resource type="CircleShape2D" id="CircleShape2D_rs7o7"]
+radius = 19.105
 
 [sub_resource type="Animation" id="Animation_prwv0"]
 length = 0.001
@@ -86,17 +115,20 @@ _data = {
 &"hurt": SubResource("Animation_vdkt2")
 }
 
-[node name="Ghost" type="CharacterBody2D"]
+[node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+motion_mode = 1
 script = ExtResource("1_yxsxn")
+sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_prwv0")
 position = Vector2(-1, -2)
 sprite_frames = SubResource("SpriteFrames_pvgmm")
-animation = &"idle"
+animation = &"follow"
+frame_progress = 0.995256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -2)
+position = Vector2(-1, 1)
 shape = SubResource("CapsuleShape2D_37jdp")
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -113,12 +145,12 @@ script = ExtResource("10_xoekh")
 ghost = NodePath("../..")
 metadata/_custom_type_script = "uid://260sqmng1uuu"
 
-[node name="GhostHitbox" type="Area2D" parent="."]
+[node name="GhostHitbox" type="Area2D" parent="." groups=["Enemy"]]
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GhostHitbox"]
-position = Vector2(-1, -2)
-shape = SubResource("CircleShape2D_xoekh")
+position = Vector2(-2, 0)
+shape = SubResource("CircleShape2D_rs7o7")
 
 [node name="HurtAnimation" type="AnimationPlayer" parent="."]
 libraries = {

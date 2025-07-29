@@ -611,7 +611,7 @@ speed_scale = 1.5
 position = Vector2(-3, 5)
 shape = SubResource("CapsuleShape2D_n7d0q")
 
-[node name="SkeletonHitbox" type="Area2D" parent="."]
+[node name="SkeletonHitbox" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SkeletonHitbox"]
 position = Vector2(-3, 4)

@@ -6,6 +6,7 @@ extends State
 var player: CharacterBody2D
 
 func Enter():
+	ghost.sprite.play("follow")
 	player = get_tree().get_first_node_in_group("Player")
 
 func Physics_Update(delta: float):

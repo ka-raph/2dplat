@@ -1,13 +1,13 @@
 extends PlayerState
 
 func Enter() -> void:
-	player.sprite.play("attack1")
-	player.is_attacking = true
+	player.sprite.play("parry")
+	player.is_parrying = true
 
 func Physics_Update(delta: float) -> void:
 	var input_direction_x: float = player.movement_component.handle_horizontal_movement(delta, true)
 	
-	if player.is_attacking:
+	if player.is_parrying:
 		return
 	elif player.is_enemy_in_attack_range:
 		Transition(self, HURT)
