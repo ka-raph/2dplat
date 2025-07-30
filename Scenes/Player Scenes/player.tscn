@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://oomo06yyac23"]
+[gd_scene load_steps=96 format=3 uid="uid://oomo06yyac23"]
 
 [ext_resource type="Script" uid="uid://djro4tt85m0gc" path="res://Scripts/Player/player.gd" id="1_3smsa"]
 [ext_resource type="Texture2D" uid="uid://dsnxc4vevce56" path="res://Assets/Characters/Players/Knight/Attack/Attack1/Frames/ATTACK 1.png" id="3_7dp3o"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://cqhcdx3eetkeq" path="res://Scripts/Player/States/jumping.gd" id="15_fd4e3"]
 [ext_resource type="Script" uid="uid://de6iuxuaapldg" path="res://Scripts/Player/States/falling.gd" id="16_qqcod"]
 [ext_resource type="Script" uid="uid://phva0fi7kwfp" path="res://Scripts/Player/States/attack_1.gd" id="17_qqcod"]
+[ext_resource type="Script" uid="uid://c77ct7njaf0nf" path="res://Scripts/Player/States/parry.gd" id="18_6vxdp"]
 [ext_resource type="Script" uid="uid://c0vt5evphs8si" path="res://Scripts/Weapons/sword.gd" id="18_igrcy"]
 [ext_resource type="Script" uid="uid://rdewrnxtm4we" path="res://Scripts/Player/States/hurt.gd" id="18_l6n3p"]
 [ext_resource type="Script" uid="uid://cpt8qja5cv3l5" path="res://Scripts/facing_collision_shape.gd" id="19_fs7ks"]
@@ -404,7 +405,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"defend",
-"speed": 6.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -435,7 +436,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 12.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -487,9 +488,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dtg1u")
 }],
-"loop": true,
+"loop": false,
 "name": &"parry",
-"speed": 7.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -522,7 +523,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1ek2"]
-radius = 6.0
+radius = 4.0
+height = 26.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_igrcy"]
 radius = 7.0
@@ -605,20 +607,22 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqcod"]
 size = Vector2(19.5, 16)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "input_component", "sprite") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "input_component", "sprite", "hitbox_area") groups=["Player"]]
+platform_floor_layers = 4294967294
 script = ExtResource("1_3smsa")
 movement_component = NodePath("Components/MovementComponent")
 input_component = NodePath("Components/InputComponent")
 sprite = NodePath("AnimatedSprite2D")
+hitbox_area = NodePath("PlayerHitbox")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_8erm5")
-animation = &"attack1"
+animation = &"hurt"
 speed_scale = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, -1)
+position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_f1ek2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -633,7 +637,7 @@ drag_vertical_offset = -0.8
 [node name="PlayerHitbox" type="Area2D" parent="."]
 
 [node name="PlayerHitboxShape" type="CollisionShape2D" parent="PlayerHitbox"]
-position = Vector2(1, -2)
+position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_igrcy")
 
 [node name="PlayerHurtAnimation" type="AnimationPlayer" parent="."]
@@ -669,8 +673,14 @@ metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 script = ExtResource("17_qqcod")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
-[node name="Hurt" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+[node name="Hurt" type="Node" parent="State Machine" node_paths=PackedStringArray("recover_cooldown", "player")]
 script = ExtResource("18_l6n3p")
+recover_cooldown = NodePath("../../Cooldowns/Recovering")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://bnnjryhgj7khk"
+
+[node name="Parry" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+script = ExtResource("18_6vxdp")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
@@ -702,9 +712,15 @@ player = NodePath("../..")
 [node name="InputComponent" type="Node" parent="Components"]
 script = ExtResource("21_yaseq")
 
+[node name="Cooldowns" type="Node" parent="."]
+
+[node name="Recovering" type="Timer" parent="Cooldowns"]
+wait_time = 0.25
+
 [connection signal="facing_direction_changed" from="." to="Sword" method="_on_player_facing_direction_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="Sword" method="_on_animated_sprite_2d_frame_changed"]
-[connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]
-[connection signal="body_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="area_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_area_entered"]
+[connection signal="area_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_area_exited"]
 [connection signal="body_entered" from="Sword" to="Sword" method="_on_body_entered"]
+[connection signal="timeout" from="Cooldowns/Recovering" to="." method="_on_recovering_timeout"]

@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 @onready var hurt_animation: AnimationPlayer = $HurtAnimation
 
+@export var sprite: AnimatedSprite2D
+
 var health: float = 100.0
 var is_player_in_attack_zone: bool = false
 

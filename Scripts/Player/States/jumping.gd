@@ -5,13 +5,14 @@ func Enter() -> void:
 	player.sprite.play("jump")
 
 func Physics_Update(delta: float) -> void:
-	if player.is_attacking:
-		return
-
 	player.movement_component.handle_horizontal_movement(delta)
 
-	if player.is_enemy_in_attack_range:
+	if player.is_hurt and not player.is_recovering:
 		Transition(self, HURT)
+	elif player.input_component.get_attack1_input():
+		Transition(self, ATTACK1)
+	elif player.input_component.get_parry_input():
+		Transition(self, PARRY)
 	elif player.velocity.y >= 0:
 		Transition(self, FALLING)
 	elif player.input_component.get_attack1_input():
