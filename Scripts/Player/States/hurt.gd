@@ -5,9 +5,6 @@ func Enter() -> void:
 	if recover_cooldown.is_stopped():
 		recover_cooldown.start()
 	player.sprite.play("hurt")
-	player.is_hurt = true
-	player.hit(15)
-	print("Player hurt, health: " + str(player.health))
 
 func Physics_Update(delta: float) -> void:
 	player.velocity.x = player.push_direction.x * recover_cooldown.time_left * 1000

@@ -8,7 +8,7 @@ func Physics_Update(_delta: float) -> void:
 	player.velocity.y += player.gravity * _delta
 	player.move_and_slide()
 
-	if player.is_enemy_in_attack_range:
+	if player.is_hurt:
 		Transition(self, HURT)
 	elif not player.is_on_floor():
 		Transition(self, FALLING)

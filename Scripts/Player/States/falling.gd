@@ -6,7 +6,7 @@ func Enter() -> void:
 func Physics_Update(delta: float) -> void:
 	var input_direction_x: float = player.movement_component.handle_horizontal_movement(delta)
 
-	if player.is_enemy_in_attack_range:
+	if player.is_hurt:
 		Transition(self, HURT)
 	elif player.input_component.get_attack1_input():
 		Transition(self, ATTACK1)
