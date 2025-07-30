@@ -8,7 +8,7 @@ func Physics_Update(_delta: float) -> void:
 	player.velocity.y += player.gravity * _delta
 	player.move_and_slide()
 
-	if player.is_hurt:
+	if player.is_hurt and not player.is_recovering:
 		Transition(self, HURT)
 	elif not player.is_on_floor():
 		Transition(self, FALLING)

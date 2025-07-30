@@ -1,17 +1,20 @@
 extends PlayerState
 @export var recover_cooldown: Timer
 
+var push_acceleration: float
+
 func Enter() -> void:
-	if recover_cooldown.is_stopped():
-		recover_cooldown.start()
+	push_acceleration = 0.5
 	player.sprite.play("hurt")
 
 func Physics_Update(delta: float) -> void:
-	player.velocity.x = player.push_direction.x * recover_cooldown.time_left * 1000
-	player.velocity.y = player.push_direction.y * recover_cooldown.time_left * 1000
+	push_acceleration += delta
+	player.velocity.x = player.push_direction.x * 100 / push_acceleration
+	player.velocity.y = player.push_direction.y * 100 / push_acceleration
 	player.move_and_slide()
 	
-	if player.is_hurt or not recover_cooldown.is_stopped():
+	# The is_hurt state is exited as soon as the player is recovering and re-toggled after recovery if necessary
+	if player.is_hurt or not player.is_recovering:
 		return
 	elif not player.is_on_floor():
 		Transition(self, FALLING)

@@ -436,7 +436,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 12.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -618,7 +618,7 @@ hitbox_area = NodePath("PlayerHitbox")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_8erm5")
-animation = &"parry"
+animation = &"hurt"
 speed_scale = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -675,7 +675,7 @@ metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
 [node name="Hurt" type="Node" parent="State Machine" node_paths=PackedStringArray("recover_cooldown", "player")]
 script = ExtResource("18_l6n3p")
-recover_cooldown = NodePath("../../Cooldowns/RecoverCooldown")
+recover_cooldown = NodePath("../../Cooldowns/Recovering")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
@@ -714,13 +714,13 @@ script = ExtResource("21_yaseq")
 
 [node name="Cooldowns" type="Node" parent="."]
 
-[node name="RecoverCooldown" type="Timer" parent="Cooldowns"]
-wait_time = 0.25
-one_shot = true
+[node name="Recovering" type="Timer" parent="Cooldowns"]
+wait_time = 0.572
 
 [connection signal="facing_direction_changed" from="." to="Sword" method="_on_player_facing_direction_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="Sword" method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="area_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_area_entered"]
+[connection signal="area_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_area_exited"]
 [connection signal="body_entered" from="Sword" to="Sword" method="_on_body_entered"]
-[connection signal="timeout" from="Cooldowns/RecoverCooldown" to="." method="_on_recover_cooldown_timeout"]
+[connection signal="timeout" from="Cooldowns/Recovering" to="." method="_on_recovering_timeout"]

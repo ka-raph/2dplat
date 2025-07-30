@@ -6,7 +6,7 @@ func Enter() -> void:
 func Physics_Update(delta: float) -> void:
 	var input_direction_x: float = player.movement_component.handle_horizontal_movement(delta)
 
-	if player.is_hurt:
+	if player.is_hurt and not player.is_recovering:
 		Transition(self, HURT)
 	elif not player.is_on_floor():
 		Transition(self, FALLING)

@@ -9,7 +9,7 @@ func Physics_Update(delta: float) -> void:
 	
 	if player.is_parrying:
 		return
-	elif player.is_hurt:
+	elif player.is_hurt and not player.is_recovering:
 		Transition(self, HURT)
 	elif player.input_component.get_attack1_input():
 		Transition(self, ATTACK1)
