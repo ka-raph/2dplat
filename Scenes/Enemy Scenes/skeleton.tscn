@@ -622,8 +622,8 @@ initial_state = NodePath("Idle")
 
 [node name="Follow" type="Node" parent="State Machine" node_paths=PackedStringArray("skeleton")]
 script = ExtResource("9_q1wii")
-skeleton = NodePath("../..")
 move_speed = 10.0
+skeleton = NodePath("../..")
 metadata/_custom_type_script = "uid://260sqmng1uuu"
 
 [node name="Idle" type="Node" parent="State Machine" node_paths=PackedStringArray("skeleton")]
@@ -636,8 +636,9 @@ script = ExtResource("12_6ey86")
 skeleton = NodePath("../..")
 metadata/_custom_type_script = "uid://bi04jq8i2chlp"
 
-[node name="Death" type="Node" parent="State Machine" node_paths=PackedStringArray("skeleton")]
+[node name="Death" type="Node" parent="State Machine" node_paths=PackedStringArray("sprite", "skeleton")]
 script = ExtResource("13_r8cpf")
+sprite = NodePath("../../AnimatedSprite2D")
 skeleton = NodePath("../..")
 metadata/_custom_type_script = "uid://bi04jq8i2chlp"
 

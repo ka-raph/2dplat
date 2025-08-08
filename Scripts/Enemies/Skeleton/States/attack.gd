@@ -1,10 +1,9 @@
 class_name SkeletonAttack
-extends State
+extends SkeletonState
 
 @export var attack_damage: float = 25.0
 @export var attack_range: float = 30.0
 @export var attack_cooldown: float = 1.5
-@export var skeleton: CharacterBody2D
 
 var player: CharacterBody2D
 var sprite: AnimatedSprite2D
@@ -28,10 +27,10 @@ func Enter():
 	animation_finished = true
 
 func Update(delta: float):
-	if not skeleton or not is_instance_valid(skeleton):
+	if not skeleton:
 		return
 	
-	if not player or not is_instance_valid(player):
+	if not player:
 		Transitioned.emit(self, "Idle")
 		return
 	
@@ -59,10 +58,8 @@ func Update(delta: float):
 			pass
 
 func Physics_Update(delta: float):
-	if not skeleton or not is_instance_valid(skeleton):
-		return
-	if not player or not is_instance_valid(player):
-		return
+	if skeleton.health <= 0:
+		Transition(self, DEATH)
 		
 	skeleton.velocity.x = 0
 	var direction = player.global_position - skeleton.global_position

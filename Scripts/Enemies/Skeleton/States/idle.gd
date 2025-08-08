@@ -1,8 +1,7 @@
 class_name SkeletonIdle
-extends State
+extends SkeletonState
 
 @export var move_speed: float = 10.0
-@export var skeleton: CharacterBody2D
 
 var player: CharacterBody2D
 var sprite: AnimatedSprite2D
@@ -35,7 +34,6 @@ func Update(delta: float):
 			Transitioned.emit(self, "Follow")
 
 func Physics_Update(delta: float):
-	if not skeleton or not is_instance_valid(skeleton):
-		return
-		
+	if skeleton.health <= 0:
+		Transition(self, DEATH)
 	skeleton.velocity.x = move_direction.x * move_speed

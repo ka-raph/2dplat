@@ -1,9 +1,10 @@
 class_name PlayerDeath
 extends PlayerState
 
-var sprite: AnimatedSprite2D
+@export var sprite: AnimatedSprite2D # Easiest way, perhaps not the best
+
 var death_timer: float = 0.0
-var death_duration: float = 1.5
+var death_duration: float = 1.5 # Seems to be the sweet spot for this sprites death animation
 
 signal death_animation_complete
 
@@ -18,9 +19,7 @@ func Enter():
 	death_timer = 0.0
 
 func Physics_Update(delta: float) -> void:
-	if player:
-		player.velocity = Vector2.ZERO
-	
+	player.velocity = Vector2.ZERO
 	death_timer += delta
 	if death_timer >= death_duration:
 		# Some fade out needed here I guess or maybe better to handle in a game manager file?

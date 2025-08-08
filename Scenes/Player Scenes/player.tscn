@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://cqhcdx3eetkeq" path="res://Scripts/Player/States/jumping.gd" id="15_fd4e3"]
 [ext_resource type="Script" uid="uid://de6iuxuaapldg" path="res://Scripts/Player/States/falling.gd" id="16_qqcod"]
 [ext_resource type="Script" uid="uid://phva0fi7kwfp" path="res://Scripts/Player/States/attack_1.gd" id="17_qqcod"]
-[ext_resource type="Script" uid="uid://ea55hu7xp236" path="res://Scripts/Player/States/death.gd" id="18_6vxdp"]
+[ext_resource type="Script" path="res://Scripts/Player/States/death.gd" id="18_6vxdp"]
 [ext_resource type="Script" uid="uid://c0vt5evphs8si" path="res://Scripts/Weapons/sword.gd" id="18_igrcy"]
 [ext_resource type="Script" uid="uid://rdewrnxtm4we" path="res://Scripts/Player/States/hurt.gd" id="18_l6n3p"]
 [ext_resource type="Script" uid="uid://cpt8qja5cv3l5" path="res://Scripts/facing_collision_shape.gd" id="19_fs7ks"]
