@@ -182,13 +182,16 @@ position = Vector2(398, 50)
 position = Vector2(652, -45)
 
 [node name="Skeleton" parent="World" instance=ExtResource("4_3dryh")]
-position = Vector2(620, 48)
+position = Vector2(635, 43)
 
 [node name="Skeleton2" parent="World" instance=ExtResource("4_3dryh")]
-position = Vector2(-162, -3)
+position = Vector2(-158, -6)
 
 [node name="Skeleton3" parent="World" instance=ExtResource("4_3dryh")]
-position = Vector2(96, -3)
+position = Vector2(57, -5)
 
 [node name="Skeleton4" parent="World" instance=ExtResource("4_3dryh")]
-position = Vector2(996, 46)
+position = Vector2(849, 42)
+
+[node name="Skeleton5" parent="World" instance=ExtResource("4_3dryh")]
+position = Vector2(1031, 41)
