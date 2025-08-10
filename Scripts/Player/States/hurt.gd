@@ -14,7 +14,9 @@ func Physics_Update(delta: float) -> void:
 	player.move_and_slide()
 	
 	# The is_hurt state is exited as soon as the player is recovering and re-toggled after recovery if necessary
-	if player.is_hurt or not player.is_recovering:
+	if player.health == 0:
+		Transition(self, DEATH)
+	elif player.is_hurt or not player.is_recovering:
 		return
 	elif not player.is_on_floor():
 		Transition(self, FALLING)

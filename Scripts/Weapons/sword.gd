@@ -10,9 +10,7 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("enemy"):
-		var push_direction_x: float = 1 if (body.global_position.x > global_position.x) else -1
-		var push_direction_y: float = 1 if (body.global_position.y > global_position.x) else -1
-		body.hit(damage, push_direction_x, push_direction_y)
+		body.hit(damage, 0, 0)
 		print(body.name + " took " + str(damage) + "dmg, current health = " + str(body.health))
 
 func _on_animated_sprite_2d_frame_changed() -> void:

@@ -19,11 +19,10 @@ var is_recovering: bool = false
 signal facing_direction_changed(is_facing_right: bool)
 
 func _physics_process(delta: float) -> void:
-	if health <= 0:
-		is_player_alive = false # Add handle respawn
-		health = 0
-		print("player is dead")
-		get_tree().reload_current_scene()
+	pass
+
+func player() -> void:
+	pass
 
 func hit(damage: float) -> void:
 	print("Player hurt, health: " + str(health))
@@ -54,7 +53,7 @@ func _on_player_hitbox_area_entered(area: Area2D) -> void:
 		push_direction.x = 1 if (area.owner.global_position.x < global_position.x) else -1
 		push_direction.y = 1 if (area.owner.global_position.y < global_position.y) else -1
 	if area.is_in_group("EnemyAttack"):
-		hit(area.damage) # Make a class for those?
+		hit(50) # Make a class for those? Yes
 		is_hurt = true
 		push_direction.x = 1 if (area.owner.global_position.x < global_position.x) else -1
 		push_direction.y = 1 if (area.owner.global_position.y < global_position.y) else -1
