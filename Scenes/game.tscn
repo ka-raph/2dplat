@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://ckug35irxgdqd"]
+[gd_scene load_steps=10 format=4 uid="uid://ckug35irxgdqd"]
 
 [ext_resource type="PackedScene" uid="uid://oomo06yyac23" path="res://Scenes/Player Scenes/player.tscn" id="1_qxrlw"]
 [ext_resource type="Texture2D" uid="uid://67gbw0u0dcdu" path="res://Assets/Environments/Fort of Illusion/Fort of Illusion Files/Layers/tileset.png" id="2_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://bgx7ssspwa7fe" path="res://Scenes/Enemy Scenes/ghost.tscn" id="3_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://dl0af4fvrs7ms" path="res://Scenes/Enemy Scenes/skeleton.tscn" id="4_3dryh"]
+[ext_resource type="Script" uid="uid://b4wougtatpco4" path="res://Scripts/GameManager/UI/Canvas/Fadeouts/on_death_fadeout.gd" id="5_wowpa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
 texture = ExtResource("2_qxrlw")
@@ -174,11 +175,26 @@ position = Vector2(138, 211)
 [node name="Player" parent="World" instance=ExtResource("1_qxrlw")]
 position = Vector2(398, 50)
 
-[node name="Ghost" parent="World" instance=ExtResource("3_wrm1d")]
-position = Vector2(656, 45)
+[node name="Ghost" parent="World" groups=["Enemy"] instance=ExtResource("3_wrm1d")]
+position = Vector2(937, -173)
 
 [node name="Skeleton" parent="World" instance=ExtResource("4_3dryh")]
 position = Vector2(511, 47)
 
-[node name="Ghost2" parent="World" instance=ExtResource("3_wrm1d")]
-position = Vector2(555, 47)
+[node name="Ghost2" parent="World" groups=["Enemy"] instance=ExtResource("3_wrm1d")]
+position = Vector2(706, -117)
+
+[node name="FadeLayer" type="CanvasLayer" parent="World" groups=["FadeLayer"]]
+layer = 10
+script = ExtResource("5_wowpa")
+
+[node name="FadeRect" type="ColorRect" parent="World/FadeLayer"]
+visible = false
+z_index = 99
+custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

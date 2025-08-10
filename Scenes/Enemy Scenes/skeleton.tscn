@@ -595,7 +595,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ahu3h"]
-size = Vector2(20, 32)
+size = Vector2(52, 38)
 
 [node name="Skeleton" type="CharacterBody2D"]
 script = ExtResource("1_q1wii")
@@ -604,14 +604,14 @@ script = ExtResource("1_q1wii")
 material = SubResource("ShaderMaterial_clg8n")
 sprite_frames = SubResource("SpriteFrames_q6mll")
 animation = &"attack"
-frame_progress = 0.801028
+frame_progress = 0.529362
 speed_scale = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 5)
 shape = SubResource("CapsuleShape2D_n7d0q")
 
-[node name="SkeletonHitbox" type="Area2D" parent="." groups=["Enemy"]]
+[node name="SkeletonHitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SkeletonHitbox"]
 position = Vector2(-3, 4)
@@ -621,24 +621,27 @@ shape = SubResource("CapsuleShape2D_vmgqc")
 script = ExtResource("7_k4moy")
 initial_state = NodePath("Idle")
 
-[node name="Follow" type="Node" parent="State Machine" node_paths=PackedStringArray("skeleton")]
+[node name="Follow" type="Node" parent="State Machine" node_paths=PackedStringArray("sprite", "skeleton")]
 script = ExtResource("9_q1wii")
-skeleton = NodePath("../..")
 move_speed = 10.0
+sprite = NodePath("../../AnimatedSprite2D")
+skeleton = NodePath("../..")
 metadata/_custom_type_script = "uid://260sqmng1uuu"
 
-[node name="Idle" type="Node" parent="State Machine" node_paths=PackedStringArray("skeleton")]
+[node name="Idle" type="Node" parent="State Machine" node_paths=PackedStringArray("sprite", "skeleton")]
 script = ExtResource("10_lw4xn")
-move_speed = 0.0
+sprite = NodePath("../../AnimatedSprite2D")
 skeleton = NodePath("../..")
 
-[node name="Attack" type="Node" parent="State Machine" node_paths=PackedStringArray("skeleton")]
+[node name="Attack" type="Node" parent="State Machine" node_paths=PackedStringArray("sprite", "skeleton")]
 script = ExtResource("12_6ey86")
+sprite = NodePath("../../AnimatedSprite2D")
 skeleton = NodePath("../..")
 metadata/_custom_type_script = "uid://bi04jq8i2chlp"
 
-[node name="Death" type="Node" parent="State Machine" node_paths=PackedStringArray("skeleton")]
+[node name="Death" type="Node" parent="State Machine" node_paths=PackedStringArray("sprite", "skeleton")]
 script = ExtResource("13_r8cpf")
+sprite = NodePath("../../AnimatedSprite2D")
 skeleton = NodePath("../..")
 metadata/_custom_type_script = "uid://bi04jq8i2chlp"
 
@@ -649,20 +652,20 @@ libraries = {
 
 [node name="Axe" type="Area2D" parent="." node_paths=PackedStringArray("animatedSprite", "skeleton", "facing_shape")]
 position = Vector2(10.75, 8)
-monitoring = false
 script = ExtResource("14_cxuko")
-damage = 20
 animatedSprite = NodePath("../AnimatedSprite2D")
 skeleton = NodePath("..")
 facing_shape = NodePath("CollisionShape2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Axe"]
-position = Vector2(3.25, -7)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Axe" groups=["EnemyAttack"]]
+position = Vector2(-15.75, -8)
 shape = SubResource("RectangleShape2D_ahu3h")
 script = ExtResource("14_r8cpf")
 facing_left_postion = Vector2(-20, -1)
 facing_right_postion = Vector2(20, -1)
 
+[connection signal="enemy_facing_direction_changed" from="." to="Axe" method="_on_enemy_facing_direction_changed"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="Axe" method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="SkeletonHitbox" to="." method="_on_skeleton_hitbox_body_entered"]
 [connection signal="body_exited" from="SkeletonHitbox" to="." method="_on_skeleton_hitbox_body_exited"]
 [connection signal="body_entered" from="Axe" to="Axe" method="_on_body_entered"]
