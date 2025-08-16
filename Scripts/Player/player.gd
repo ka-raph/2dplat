@@ -3,16 +3,17 @@ class_name Player extends CharacterBody2D
 @export var movement_component: MovementComponent
 @export var input_component: InputComponent
 @export var sprite: AnimatedSprite2D
+@export var animation: AnimationPlayer
 @export var speed := 150.0
 @export var gravity := 1000.0
 @export var jump_impulse := 380.0
 @export var hitbox_area: Area2D
+@export var is_attacking: bool = false
 
 var health: float = 100.0
 var is_player_alive: bool = true
 var is_hurt: bool = false
 var push_direction: Vector2
-var is_attacking: bool = false
 var is_parrying: bool = false
 var is_recovering: bool = false
 
@@ -33,9 +34,7 @@ func hit(damage: float) -> void:
 		is_player_alive = false
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if sprite.animation == "attack1":
-		is_attacking = false
-	elif sprite.animation == "parry":
+	if sprite.animation == "parry":
 		is_parrying = false
 	elif sprite.animation == "hurt":
 		is_hurt = false

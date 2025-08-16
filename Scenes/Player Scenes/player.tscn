@@ -523,52 +523,7 @@ animations = [{
 "speed": 7.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1ek2"]
-radius = 4.0
-height = 26.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_igrcy"]
-radius = 7.0
-height = 34.0
-
-[sub_resource type="Animation" id="Animation_bi64h"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_value")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_wpjfl"]
-resource_name = "playerHurt"
-length = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_value")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.01, 0.05, 0.1, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 1.0, 0.0, 1.0, 0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ijsl"]
-_data = {
-&"RESET": SubResource("Animation_bi64h"),
-&"playerHurt": SubResource("Animation_wpjfl")
-}
-
-[sub_resource type="Animation" id="Animation_igrcy"]
+[sub_resource type="Animation" id="Animation_q828n"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -579,13 +534,49 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:is_attacking")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sword:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack1"]
+}
 
-[sub_resource type="Animation" id="Animation_qqcod"]
+[sub_resource type="Animation" id="Animation_7rcsu"]
 resource_name = "attack1"
-length = 0.54
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -595,35 +586,102 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
+"update": 1,
 "values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:is_attacking")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sword:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack1"]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sword")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"transform_hitbox_attack_start"
+}, {
+"args": [],
+"method": &"transform_hitbox_attack_core"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fs7ks"]
 _data = {
-&"RESET": SubResource("Animation_igrcy"),
-&"attack1": SubResource("Animation_qqcod")
+&"RESET": SubResource("Animation_q828n"),
+&"attack1": SubResource("Animation_7rcsu")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqcod"]
-size = Vector2(19.5, 16)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1ek2"]
+radius = 6.0
+height = 32.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "input_component", "sprite", "hitbox_area") groups=["Player"]]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_igrcy"]
+radius = 8.0
+height = 36.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqcod"]
+size = Vector2(21.5, 13)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "input_component", "sprite", "animation", "hitbox_area") groups=["Player"]]
 platform_floor_layers = 4294967294
 script = ExtResource("1_3smsa")
 movement_component = NodePath("Components/MovementComponent")
 input_component = NodePath("Components/InputComponent")
 sprite = NodePath("AnimatedSprite2D")
+animation = NodePath("AnimationPlayer")
 hitbox_area = NodePath("PlayerHitbox")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_8erm5")
-animation = &"hurt"
+animation = &"attack1"
 speed_scale = 1.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fs7ks")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 position = Vector2(0, -2)
+
 shape = SubResource("CapsuleShape2D_f1ek2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -638,13 +696,8 @@ drag_vertical_offset = -0.8
 [node name="PlayerHitbox" type="Area2D" parent="."]
 
 [node name="PlayerHitboxShape" type="CollisionShape2D" parent="PlayerHitbox"]
-position = Vector2(0, -2)
+position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_igrcy")
-
-[node name="PlayerHurtAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_2ijsl")
-}
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("12_ukyrk")
@@ -696,19 +749,18 @@ libraries = {
 &"": SubResource("AnimationLibrary_fs7ks")
 }
 
-[node name="Sword" type="Area2D" parent="." node_paths=PackedStringArray("animatedSprite", "player", "facing_shape")]
+[node name="Sword" type="Area2D" parent="." node_paths=PackedStringArray("player", "facing_shape")]
 monitoring = false
 script = ExtResource("18_igrcy")
-animatedSprite = NodePath("../AnimatedSprite2D")
 player = NodePath("..")
 facing_shape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
-position = Vector2(17.25, -1)
+position = Vector2(18, 5)
 shape = SubResource("RectangleShape2D_qqcod")
 script = ExtResource("19_fs7ks")
-facing_left_postion = Vector2(-20, -1)
-facing_right_postion = Vector2(20, -1)
+facing_left_postion = Vector2(-18, 5)
+facing_right_postion = Vector2(18, 5)
 
 [node name="Components" type="Node" parent="."]
 
