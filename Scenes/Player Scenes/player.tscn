@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://oomo06yyac23"]
+[gd_scene load_steps=96 format=3 uid="uid://oomo06yyac23"]
 
 [ext_resource type="Script" uid="uid://djro4tt85m0gc" path="res://Scripts/Player/player.gd" id="1_3smsa"]
 [ext_resource type="Texture2D" uid="uid://dsnxc4vevce56" path="res://Assets/Characters/Players/Knight/Attack/Attack1/Frames/ATTACK 1.png" id="3_7dp3o"]
@@ -817,6 +817,10 @@ _data = {
 &"parry": SubResource("Animation_ng2ui")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1ek2"]
+radius = 6.0
+height = 32.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_igrcy"]
 radius = 8.0
 height = 36.0
@@ -842,6 +846,10 @@ speed_scale = 1.5
 libraries = {
 &"": SubResource("AnimationLibrary_fs7ks")
 }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_f1ek2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = -1200
