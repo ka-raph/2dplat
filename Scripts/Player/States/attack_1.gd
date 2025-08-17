@@ -7,10 +7,11 @@ func Enter() -> void:
 func Physics_Update(delta: float) -> void:
 	var input_direction_x: float = player.movement_component.handle_horizontal_movement(delta, true)
 	
-	if player.is_hurt and not player.is_recovering:
-		Transition(self, HURT)
-	elif player.is_attacking:
+	# Should we cancel the attack or just damage the player with visual feedback (red flashing)?
+	if player.is_attacking:
 		return
+	elif player.is_hurt and not player.is_recovering:
+		Transition(self, HURT)
 	elif player.input_component.get_attack1_input():
 		Transition(self, ATTACK1)
 	elif player.input_component.get_parry_input():

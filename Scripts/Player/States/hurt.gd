@@ -5,7 +5,7 @@ var push_acceleration: float
 
 func Enter() -> void:
 	push_acceleration = 0.5
-	player.sprite.play("hurt")
+	player.animation.play("hurt")
 
 func Physics_Update(delta: float) -> void:
 	push_acceleration += delta

@@ -1,7 +1,7 @@
 extends PlayerState
 
 func Enter() -> void:
-	player.sprite.play("parry")
+	player.animation.play("parry")
 	player.is_parrying = true
 
 func Physics_Update(delta: float) -> void:
