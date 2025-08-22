@@ -3,18 +3,22 @@ class_name Player extends CharacterBody2D
 @export var movement_component: MovementComponent
 @export var input_component: InputComponent
 @export var sprite: AnimatedSprite2D
+@export var animation: AnimationPlayer
 @export var speed := 150.0
 @export var gravity := 1000.0
 @export var jump_impulse := 380.0
 @export var hitbox_area: Area2D
 
+# Variables handled (at least partly) by animations
+@export var is_attacking: bool = false
+@export var is_hurt: bool = false
+@export var is_recovering: bool = false
+@export var is_parrying: bool = false
+@export var is_perfect_parry: bool = false
+
 var health: float = 100.0
 var is_player_alive: bool = true
-var is_hurt: bool = false
 var push_direction: Vector2
-var is_attacking: bool = false
-var is_parrying: bool = false
-var is_recovering: bool = false
 
 signal facing_direction_changed(is_facing_right: bool)
 
@@ -25,22 +29,19 @@ func player() -> void:
 	pass
 
 func hit(damage: float) -> void:
-	print("Player hurt, health: " + str(health))
-	health -= damage
+	print("Player hurt, health, incoming damage: " + str(health) + ", " + str(damage))
+	var updated_damage = damage
+	if is_perfect_parry:
+		updated_damage = 0
+	elif is_parrying:
+		updated_damage /= 2
+	print ("Updated damage: " + str(updated_damage))
+	
+	health -= updated_damage
 	is_hurt = true
 	if health <= 0:
 		health = 0 # Avoid negative health
 		is_player_alive = false
-
-func _on_animated_sprite_2d_animation_finished() -> void:
-	if sprite.animation == "attack1":
-		is_attacking = false
-	elif sprite.animation == "parry":
-		is_parrying = false
-	elif sprite.animation == "hurt":
-		is_hurt = false
-		is_recovering = true
-		$Cooldowns/Recovering.start()
 
 func update_facing_direction(is_facing_right: bool) -> void:
 	self.emit_signal("facing_direction_changed", is_facing_right)
