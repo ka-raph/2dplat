@@ -4,9 +4,6 @@ class_name Player extends CharacterBody2D
 @export var input_component: InputComponent
 @export var sprite: AnimatedSprite2D
 @export var animation: AnimationPlayer
-@export var speed := 150.0
-@export var gravity := 1000.0
-@export var jump_impulse := 380.0
 @export var hitbox_area: Area2D
 
 # Variables handled (at least partly) by animations
@@ -23,12 +20,12 @@ var push_direction: Vector2
 signal facing_direction_changed(is_facing_right: bool)
 
 func _physics_process(delta: float) -> void:
-	pass
+	movement_component.handle_movement(delta)
 
 func player() -> void:
 	pass
 
-func hit(damage: float) -> void:
+func hit(damage: float) -> void:	
 	print("Player hurt, health, incoming damage: " + str(health) + ", " + str(damage))
 	var updated_damage = damage
 	if is_perfect_parry:
@@ -37,6 +34,8 @@ func hit(damage: float) -> void:
 		updated_damage /= 2
 	print ("Updated damage: " + str(updated_damage))
 	
+	if is_hurt or is_recovering or is_perfect_parry:
+		return
 	health -= updated_damage
 	is_hurt = true
 	if health <= 0:
@@ -48,20 +47,19 @@ func update_facing_direction(is_facing_right: bool) -> void:
 
 # Add this stuff in a component that runs on states?
 func _on_player_hitbox_area_entered(area: Area2D) -> void:
+	if not area.monitoring:
+		return
 	if area.is_in_group("Enemy"):
 		hit(15)
-		is_hurt = true
-		push_direction.x = 1 if (area.owner.global_position.x < global_position.x) else -1
-		push_direction.y = 1 if (area.owner.global_position.y < global_position.y) else -1
 	if area.is_in_group("EnemyAttack"):
-		hit(50) # Make a class for those? Yes
-		is_hurt = true
-		push_direction.x = 1 if (area.owner.global_position.x < global_position.x) else -1
-		push_direction.y = 1 if (area.owner.global_position.y < global_position.y) else -1
+		hit(area.damage) # Make a class for those? Yes
+	
+	push_direction.x = 1 if (area.owner.global_position.x < global_position.x) else -1
+	push_direction.y = 1 if (area.owner.global_position.y < global_position.y) else -1
 
 # Perhaps we'll want a utils component/class for this kind of stuff
 func check_has_overlapping_areas(overlappingArea: Area2D) -> bool:
-	return overlappingArea.is_in_group("Enemy") or overlappingArea.is_in_group("EnemyAttack")
+	return overlappingArea.monitoring and (overlappingArea.is_in_group("Enemy") or overlappingArea.is_in_group("EnemyAttack"))
 
 func get_highest_damage_overlapping_hurtful_area() -> float:
 	var hurtfulAreas: Array[Area2D] = hitbox_area.get_overlapping_areas().filter(check_has_overlapping_areas)
