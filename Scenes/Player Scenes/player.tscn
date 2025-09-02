@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://oomo06yyac23"]
+[gd_scene load_steps=97 format=3 uid="uid://oomo06yyac23"]
 
 [ext_resource type="Script" uid="uid://djro4tt85m0gc" path="res://Scripts/Player/player.gd" id="1_3smsa"]
 [ext_resource type="Texture2D" uid="uid://dsnxc4vevce56" path="res://Assets/Characters/Players/Knight/Attack/Attack1/Frames/ATTACK 1.png" id="3_7dp3o"]
@@ -19,10 +19,11 @@
 [ext_resource type="Script" uid="uid://c77ct7njaf0nf" path="res://Scripts/Player/States/parry.gd" id="18_6vxdp"]
 [ext_resource type="Script" uid="uid://c0vt5evphs8si" path="res://Scripts/Weapons/sword.gd" id="18_igrcy"]
 [ext_resource type="Script" uid="uid://rdewrnxtm4we" path="res://Scripts/Player/States/hurt.gd" id="18_l6n3p"]
-[ext_resource type="Script" path="res://Scripts/Player/States/death.gd" id="19_7rcsu"]
+[ext_resource type="Script" uid="uid://b76i222vubr7w" path="res://Scripts/Player/States/death.gd" id="19_7rcsu"]
 [ext_resource type="Script" uid="uid://cpt8qja5cv3l5" path="res://Scripts/facing_collision_shape.gd" id="19_fs7ks"]
 [ext_resource type="Script" uid="uid://dd1ncvq7munyw" path="res://Scripts/Player/Components/movement_component.gd" id="20_xgk0j"]
 [ext_resource type="Script" uid="uid://b5wddnby30ava" path="res://Scripts/Player/Components/input_component.gd" id="21_yaseq"]
+[ext_resource type="Script" uid="uid://bo7lp4odix3e" path="res://Scripts/Player/Components/jump_component.gd" id="24_ng2ui"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_83xs0"]
 atlas = ExtResource("3_7dp3o")
@@ -926,17 +927,35 @@ facing_right_postion = Vector2(18, 5)
 
 [node name="Components" type="Node" parent="."]
 
-[node name="MovementComponent" type="Node" parent="Components" node_paths=PackedStringArray("player")]
+[node name="MovementComponent" type="Node" parent="Components" node_paths=PackedStringArray("player", "input_component", "jump_component")]
 script = ExtResource("20_xgk0j")
 player = NodePath("../..")
+input_component = NodePath("../InputComponent")
+jump_component = NodePath("../JumpComponent")
 
 [node name="InputComponent" type="Node" parent="Components"]
 script = ExtResource("21_yaseq")
+
+[node name="JumpComponent" type="Node" parent="Components" node_paths=PackedStringArray("player", "input_component", "jump_buffer_timer", "coyote_timer")]
+script = ExtResource("24_ng2ui")
+player = NodePath("../..")
+input_component = NodePath("../InputComponent")
+jump_buffer_timer = NodePath("JumpBufferTimer")
+coyote_timer = NodePath("CoyoteTimer")
+
+[node name="JumpBufferTimer" type="Timer" parent="Components/JumpComponent"]
+wait_time = 0.1
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="Components/JumpComponent"]
+wait_time = 0.08
+one_shot = true
 
 [node name="Cooldowns" type="Node" parent="."]
 
 [node name="Recovering" type="Timer" parent="Cooldowns"]
 wait_time = 0.25
+one_shot = true
 
 [connection signal="facing_direction_changed" from="." to="Sword" method="_on_player_facing_direction_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

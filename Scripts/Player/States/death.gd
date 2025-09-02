@@ -17,7 +17,7 @@ func Update(delta: float) -> void:
 
 func Physics_Update(delta: float) -> void:
 	player.velocity.x = 0.0
-	player.velocity.y += player.gravity * delta
+	player.velocity.y += player.movement_component.gravity * delta
 	player.move_and_slide()
 
 func start_fade_out():

@@ -2,18 +2,39 @@ class_name MovementComponent
 extends Node
 
 @export_subgroup("Settings")
-@export var speed: float = 100
-@export var player: Player
+@export var speed: float = 150.0
+@export var ground_accel_speed: float = 10.0
+@export var ground_decel_speed: float = 20.0
+@export var air_accel_speed: float = 10.0
+@export var air_decel_speed: float = 18.0
+@export var jump_velocity: float = -350.0
+@export var gravity := 1000.0
+@export var jump_impulse := 380.0
 
-func handle_horizontal_movement(delta: float, is_skipping_flip: bool = false) -> float:
-	var input_component: InputComponent = player.input_component
+@export_subgroup("Nodes")
+@export var player: Player
+@export var input_component: InputComponent
+@export var jump_component: JumpComponent
+
+func handle_movement(delta: float, is_skipping_flip: bool = false) -> float:
 	var input_direction_x: float = input_component.get_input_direction_x()
-	player.velocity.x = player.speed * input_direction_x
-	player.velocity.y += player.gravity * delta
+	
+	# Handle acceleration / deceleration
+	var velocity_change_speed: float = 0.0
+	if player.is_on_floor():
+		velocity_change_speed = ground_accel_speed if input_direction_x != 0 else ground_decel_speed
+	else:
+		velocity_change_speed = air_accel_speed if input_direction_x != 0 else air_decel_speed
+	
+	player.velocity.x = move_toward(player.velocity.x, input_direction_x * speed, velocity_change_speed)
+	player.velocity.y += gravity * delta
+	
 	if not is_skipping_flip:
 		handle_horizontal_flip(input_direction_x)
-	player.move_and_slide()
 	
+	jump_component.handle_jump()
+	
+	player.move_and_slide()
 	return input_direction_x
 
 func handle_horizontal_flip(move_direction: float) -> void:

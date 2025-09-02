@@ -5,9 +5,10 @@ func Enter() -> void:
 	player.is_parrying = true
 
 func Physics_Update(delta: float) -> void:
-	var input_direction_x: float = player.movement_component.handle_horizontal_movement(delta, true)
-	
-	if player.is_parrying:
+	# TODO hurt + parry (but not perfect) should we still make the player sprite flash but don't push the player away??
+	# TODO if player.is_parrying and not player.is_perfect_parry:
+		
+	if player.is_parrying and not player.is_hurt and not player.is_recovering:
 		return
 	elif player.is_hurt and not player.is_recovering:
 		Transition(self, HURT)
@@ -17,9 +18,9 @@ func Physics_Update(delta: float) -> void:
 		Transition(self, PARRY)
 	elif not player.is_on_floor():
 		Transition(self, FALLING)
-	elif player.input_component.get_jump_input():
+	elif player.velocity.y < 0:
 		Transition(self, JUMPING)
-	elif not is_equal_approx(input_direction_x, 0.0):
+	elif not is_equal_approx(player.velocity.x, 0.0):
 		Transition(self, RUNNING)
 	else:
 		Transition(self, IDLE)
