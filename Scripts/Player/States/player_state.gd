@@ -10,6 +10,7 @@ const ATTACK3 = "Attack3"
 const HURT = "Hurt"
 const PARRY = "Parry"
 const DEATH = "Death"
+const DASH = "Dash"
 
 @export var player: Player
 
