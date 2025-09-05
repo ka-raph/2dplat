@@ -24,5 +24,3 @@ func Physics_Update(delta: float) -> void:
 		Transition(self, JUMPING)
 	elif is_equal_approx(player.velocity.x, 0.0):
 		Transition(self, IDLE)
-	elif not is_equal_approx(player.velocity.x, 0.0) and player.dash_duration == 0.0:
-		Transition(self, RUNNING)
