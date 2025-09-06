@@ -14,6 +14,8 @@ func Physics_Update(_delta: float) -> void:
 		Transition(self, ATTACK1)
 	elif player.input_component.get_parry_input():
 		Transition(self, PARRY)
+	elif player.input_component.get_dash_input() and player.dash_cooldown == 2.0:
+		Transition(self, DASH)
 	elif player.velocity.y < 0.0:
 		Transition(self, JUMPING)
 	elif not is_equal_approx(player.velocity.x, 0.0):

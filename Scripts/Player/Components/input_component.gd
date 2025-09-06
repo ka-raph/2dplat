@@ -17,3 +17,6 @@ func get_parry_input() -> bool:
 
 func get_jump_input_released() -> bool:
 	return Input.is_action_just_released("jump")
+
+func get_dash_input() -> bool:
+	return Input.is_action_just_pressed("dash")

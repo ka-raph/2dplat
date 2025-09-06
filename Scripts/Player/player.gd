@@ -12,15 +12,23 @@ class_name Player extends CharacterBody2D
 @export var is_recovering: bool = false
 @export var is_parrying: bool = false
 @export var is_perfect_parry: bool = false
+@export var is_dashing: bool = false
 
 var health: float = 100.0
 var is_player_alive: bool = true
 var push_direction: Vector2
+var dash_cooldown: float = 2.0
+var has_just_dashed: bool = false
 
 signal facing_direction_changed(is_facing_right: bool)
 
 func _physics_process(delta: float) -> void:
 	movement_component.handle_movement(delta)
+	if has_just_dashed:
+		dash_cooldown -= delta
+	if dash_cooldown <= 0.0:
+		has_just_dashed = false
+		dash_cooldown = 2.0
 
 func player() -> void:
 	pass
@@ -79,3 +87,4 @@ func _on_recovering_timeout() -> void:
 		# and push the area RID in an array and then just keep the array updated if hurtful areas leave it (pop)/enter it(push)
 		# and the first one in the array will be the next damage?????
 		hit(damageTaken)
+	

@@ -842,7 +842,7 @@ height = 36.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqcod"]
 size = Vector2(21.5, 13)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "input_component", "sprite", "animation", "hitbox_area") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "input_component", "sprite", "animation", "hitbox_area", "dash_cooldown") groups=["Player"]]
 platform_floor_layers = 4294967294
 script = ExtResource("1_3smsa")
 movement_component = NodePath("Components/MovementComponent")
@@ -850,6 +850,7 @@ input_component = NodePath("Components/InputComponent")
 sprite = NodePath("AnimatedSprite2D")
 animation = NodePath("AnimationPlayer")
 hitbox_area = NodePath("PlayerHitbox")
+dash_cooldown = NodePath("Cooldowns/Dash Cooldown")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8erm5")
@@ -974,6 +975,8 @@ one_shot = true
 wait_time = 0.25
 one_shot = true
 
+[node name="Dash Cooldown" type="Timer" parent="Cooldowns"]
+
 [connection signal="facing_direction_changed" from="." to="Sword" method="_on_player_facing_direction_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="Sword" method="_on_animated_sprite_2d_frame_changed"]
@@ -981,3 +984,4 @@ one_shot = true
 [connection signal="area_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_area_exited"]
 [connection signal="body_entered" from="Sword" to="Sword" method="_on_body_entered"]
 [connection signal="timeout" from="Cooldowns/Recovering" to="." method="_on_recovering_timeout"]
+[connection signal="timeout" from="Cooldowns/Dash Cooldown" to="." method="_on_dash_cooldown_timeout"]
