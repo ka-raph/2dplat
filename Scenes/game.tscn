@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=4 uid="uid://ckug35irxgdqd"]
+[gd_scene load_steps=11 format=4 uid="uid://ckug35irxgdqd"]
 
 [ext_resource type="PackedScene" uid="uid://oomo06yyac23" path="res://Scenes/Player Scenes/player.tscn" id="1_qxrlw"]
+[ext_resource type="AudioStream" uid="uid://34csl5m8fner" path="res://Assets/Audio/medieval-ambient-236809.mp3" id="2_i6g32"]
 [ext_resource type="Texture2D" uid="uid://67gbw0u0dcdu" path="res://Assets/Environments/Fort of Illusion/Fort of Illusion Files/Layers/tileset.png" id="2_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://bgx7ssspwa7fe" path="res://Scenes/Enemy Scenes/ghost.tscn" id="3_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://dl0af4fvrs7ms" path="res://Scenes/Enemy Scenes/skeleton.tscn" id="4_3dryh"]
@@ -171,6 +172,10 @@ position = Vector2(45, 111)
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="World/Level/ParallaxBackground"]
 position = Vector2(138, 211)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="World/Level"]
+stream = ExtResource("2_i6g32")
+autoplay = true
 
 [node name="Player" parent="World" instance=ExtResource("1_qxrlw")]
 position = Vector2(398, 50)

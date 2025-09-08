@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://dl0af4fvrs7ms"]
+[gd_scene load_steps=94 format=3 uid="uid://dl0af4fvrs7ms"]
 
 [ext_resource type="Script" uid="uid://blk02r5innn4l" path="res://Scripts/Enemies/Skeleton/skeleton.gd" id="1_q1wii"]
 [ext_resource type="Texture2D" uid="uid://pbr1t1iws4pk" path="res://Assets/Characters/Enemies and NPC/skeleton/sprites/idle/Skeleton Idle.png" id="1_sfdtf"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cwknin1le0pns" path="res://Scripts/Enemies/Skeleton/States/idle.gd" id="10_lw4xn"]
 [ext_resource type="Script" uid="uid://bk28bwa0ar5h2" path="res://Scripts/Enemies/Skeleton/States/attack.gd" id="12_6ey86"]
 [ext_resource type="Script" uid="uid://chewqnpmhuftj" path="res://Scripts/Enemies/Skeleton/States/death.gd" id="13_r8cpf"]
+[ext_resource type="Script" uid="uid://cf4dftjaxxlja" path="res://Scripts/Enemies/Skeleton/States/hurt.gd" id="14_ahu3h"]
 [ext_resource type="Script" uid="uid://da86cy6nuctea" path="res://Scripts/Enemies/Skeleton/axe.gd" id="14_cxuko"]
 [ext_resource type="Script" uid="uid://cpt8qja5cv3l5" path="res://Scripts/facing_collision_shape.gd" id="14_r8cpf"]
 
@@ -644,6 +645,10 @@ script = ExtResource("13_r8cpf")
 sprite = NodePath("../../AnimatedSprite2D")
 skeleton = NodePath("../..")
 metadata/_custom_type_script = "uid://bi04jq8i2chlp"
+
+[node name="Hurt" type="Node" parent="State Machine" node_paths=PackedStringArray("skeleton")]
+script = ExtResource("14_ahu3h")
+skeleton = NodePath("../..")
 
 [node name="HurtAnimation" type="AnimationPlayer" parent="."]
 libraries = {
