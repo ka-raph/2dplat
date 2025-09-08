@@ -29,7 +29,8 @@ func handle_movement(delta: float, is_skipping_flip: bool = false) -> float:
 		velocity_change_speed = air_accel_speed if input_direction_x != 0 else air_decel_speed
 	
 	player.velocity.x = move_toward(player.velocity.x, input_direction_x * speed, velocity_change_speed)
-	player.velocity.y += gravity * delta
+	if not player.is_dashing:
+		player.velocity.y += gravity * delta
 	
 	if not is_skipping_flip:
 		handle_horizontal_flip(input_direction_x)
@@ -47,8 +48,6 @@ func handle_horizontal_flip(move_direction: float) -> void:
 	player.update_facing_direction(!player.sprite.flip_h)
 	
 func handle_dashing(move_direction: float) -> void:
-	# Todo: Figure out a way to transistion back to running after dashing in a graceful way. Right now we just slide endlessly if we dah and hold the movement keys
-	if not player.has_just_dashed:
-		dash_velocity = dash * move_direction
-		player.velocity.x = dash_velocity
-		player.velocity.y = 0
+	dash_velocity = dash * move_direction
+	player.velocity.x = dash_velocity
+	player.velocity.y = 0

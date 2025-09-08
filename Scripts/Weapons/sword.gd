@@ -6,6 +6,7 @@ extends Area2D
 @export var facing_shape: FacingCollisionShape2D
 
 var direction_modifier: float = 1
+var hitstop_duration: float = 0.15  # Hitstop duration
 
 func _ready() -> void:
 	monitoring = false
@@ -14,6 +15,21 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("enemy"):
 		body.hit(damage, 0, 0)
 		print(body.name + " took " + str(damage) + "dmg, current health = " + str(body.health))
+		trigger_hitstop()
+
+# Hit Stop
+# Maybe handle in utils or game manager file
+func trigger_hitstop() -> void:
+	Engine.time_scale = 0.0
+	var timer = Timer.new()
+	timer.wait_time = hitstop_duration
+	timer.one_shot = true
+	timer.ignore_time_scale = true
+	add_child(timer)
+	timer.start()
+	await timer.timeout
+	timer.queue_free()
+	Engine.time_scale = 1.0
 
 func _on_player_facing_direction_changed(is_facing_right: bool) -> void:
 	if is_facing_right:

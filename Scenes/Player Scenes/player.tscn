@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://oomo06yyac23"]
+[gd_scene load_steps=100 format=3 uid="uid://oomo06yyac23"]
 
 [ext_resource type="Script" uid="uid://djro4tt85m0gc" path="res://Scripts/Player/player.gd" id="1_3smsa"]
 [ext_resource type="Texture2D" uid="uid://dsnxc4vevce56" path="res://Assets/Characters/Players/Knight/Attack/Attack1/Frames/ATTACK 1.png" id="3_7dp3o"]
@@ -635,6 +635,42 @@ tracks/7/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".:collision_layer")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".:collision_mask")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath(".:is_dashing")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_7rcsu"]
 resource_name = "attack1"
@@ -823,10 +859,89 @@ tracks/3/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_x6085"]
+resource_name = "dash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"dash"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:collision_layer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:collision_mask")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:is_dashing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Cooldowns/Dash")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fs7ks"]
 _data = {
 &"RESET": SubResource("Animation_q828n"),
 &"attack1": SubResource("Animation_7rcsu"),
+&"dash": SubResource("Animation_x6085"),
 &"hurt": SubResource("Animation_6vxdp"),
 &"parry": SubResource("Animation_ng2ui")
 }
@@ -842,7 +957,7 @@ height = 36.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqcod"]
 size = Vector2(21.5, 13)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "input_component", "sprite", "animation", "hitbox_area") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "input_component", "sprite", "animation", "hitbox_area", "dash_cooldown") groups=["Player"]]
 platform_floor_layers = 4294967294
 script = ExtResource("1_3smsa")
 movement_component = NodePath("Components/MovementComponent")
@@ -850,6 +965,7 @@ input_component = NodePath("Components/InputComponent")
 sprite = NodePath("AnimatedSprite2D")
 animation = NodePath("AnimationPlayer")
 hitbox_area = NodePath("PlayerHitbox")
+dash_cooldown = NodePath("Cooldowns/Dash")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8erm5")
@@ -861,10 +977,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_fs7ks")
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
-position = Vector2(0, 3)
-shape = SubResource("CapsuleShape2D_f1ek2")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = -1200
 limit_top = -500
@@ -873,6 +985,10 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_horizontal_offset = 0.91
 drag_vertical_offset = -0.8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_f1ek2")
 
 [node name="PlayerHitbox" type="Area2D" parent="."]
 
@@ -972,6 +1088,9 @@ one_shot = true
 
 [node name="Recovering" type="Timer" parent="Cooldowns"]
 wait_time = 0.25
+one_shot = true
+
+[node name="Dash" type="Timer" parent="Cooldowns"]
 one_shot = true
 
 [connection signal="facing_direction_changed" from="." to="Sword" method="_on_player_facing_direction_changed"]
