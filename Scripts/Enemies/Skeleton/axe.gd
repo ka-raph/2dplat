@@ -1,18 +1,18 @@
-extends Area2D
+extends Hitbox
 
-@export var damage: int = 7
 @export var animatedSprite: AnimatedSprite2D
 @export var skeleton: Skeleton
 @export var facing_shape: FacingCollisionShape2D
 
 func _ready() -> void:
+	super()
 	monitoring = false
-		
+
 func _on_animated_sprite_2d_frame_changed() -> void:
-	if animatedSprite.animation == "attack" and animatedSprite.frame >= 7:
-		monitoring = true
-	else:
-		monitoring = false
+	var active := animatedSprite.animation == "attack" and animatedSprite.frame >= 7
+	if active and not monitoring:
+		begin_swing()
+	monitoring = active
 
 func _on_enemy_facing_direction_changed(is_enemy_facing_right: bool) -> void:
 	if is_enemy_facing_right:

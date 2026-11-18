@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://oomo06yyac23"]
+[gd_scene format=3 uid="uid://oomo06yyac23"]
 
 [ext_resource type="Script" uid="uid://djro4tt85m0gc" path="res://Scripts/Player/player.gd" id="1_3smsa"]
 [ext_resource type="Texture2D" uid="uid://dsnxc4vevce56" path="res://Assets/Characters/Players/Knight/Attack/Attack1/Frames/ATTACK 1.png" id="3_7dp3o"]
@@ -25,6 +25,8 @@
 [ext_resource type="Script" uid="uid://dd1ncvq7munyw" path="res://Scripts/Player/Components/movement_component.gd" id="20_xgk0j"]
 [ext_resource type="Script" uid="uid://b5wddnby30ava" path="res://Scripts/Player/Components/input_component.gd" id="21_yaseq"]
 [ext_resource type="Script" uid="uid://bo7lp4odix3e" path="res://Scripts/Player/Components/jump_component.gd" id="24_ng2ui"]
+[ext_resource type="Script" uid="uid://dne17wgfpnhb7" path="res://Scripts/Components/hurtbox.gd" id="hb_hurtbox"]
+[ext_resource type="Script" uid="uid://bvfm6mhan3mxd" path="res://Scripts/Components/health_component.gd" id="hc_health"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_83xs0"]
 atlas = ExtResource("3_7dp3o")
@@ -303,7 +305,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yh6i2")
 }],
-"loop": false,
+"loop": 0,
 "name": &"attack1",
 "speed": 12.0
 }, {
@@ -323,7 +325,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sbwqj")
 }],
-"loop": true,
+"loop": 1,
 "name": &"attack2",
 "speed": 6.0
 }, {
@@ -346,7 +348,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5x828")
 }],
-"loop": true,
+"loop": 1,
 "name": &"attack3",
 "speed": 7.0
 }, {
@@ -354,7 +356,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_q828n")
 }],
-"loop": true,
+"loop": 1,
 "name": &"dash",
 "speed": 5.0
 }, {
@@ -395,7 +397,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wcnj3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -418,7 +420,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_n1x1j")
 }],
-"loop": true,
+"loop": 1,
 "name": &"defend",
 "speed": 10.0
 }, {
@@ -432,7 +434,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vq3lt")
 }],
-"loop": true,
+"loop": 1,
 "name": &"fall",
 "speed": 5.0
 }, {
@@ -449,7 +451,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7ldla")
 }],
-"loop": false,
+"loop": 0,
 "name": &"hurt",
 "speed": 10.0
 }, {
@@ -475,7 +477,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_p1odr")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -486,7 +488,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e6mvm")
 }],
-"loop": true,
+"loop": 1,
 "name": &"jump",
 "speed": 5.0
 }, {
@@ -503,7 +505,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dtg1u")
 }],
-"loop": false,
+"loop": 0,
 "name": &"parry",
 "speed": 10.0
 }, {
@@ -532,7 +534,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y6uwr")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 7.0
 }]
@@ -741,6 +743,84 @@ tracks/4/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_x6085"]
+resource_name = "dash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"dash"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:collision_layer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:collision_mask")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:is_dashing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Cooldowns/Dash")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_6vxdp"]
 resource_name = "hurt"
 length = 0.4
@@ -859,84 +939,6 @@ tracks/3/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="Animation" id="Animation_x6085"]
-resource_name = "dash"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"dash"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:collision_layer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [2, 1]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:collision_mask")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [2, 1]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:is_dashing")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Cooldowns/Dash")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"start"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fs7ks"]
 _data = {
 &"RESET": SubResource("Animation_q828n"),
@@ -957,27 +959,27 @@ height = 36.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqcod"]
 size = Vector2(21.5, 13)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "input_component", "sprite", "animation", "hitbox_area", "dash_cooldown") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1277919862 node_paths=PackedStringArray("movement_component", "input_component", "health", "sword", "sprite", "animation", "hitbox_area", "dash_cooldown") groups=["Player"]]
 platform_floor_layers = 4294967294
 script = ExtResource("1_3smsa")
 movement_component = NodePath("Components/MovementComponent")
 input_component = NodePath("Components/InputComponent")
+health = NodePath("Components/HealthComponent")
+sword = NodePath("Sword")
 sprite = NodePath("AnimatedSprite2D")
 animation = NodePath("AnimationPlayer")
 hitbox_area = NodePath("PlayerHitbox")
 dash_cooldown = NodePath("Cooldowns/Dash")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=823804415]
 sprite_frames = SubResource("SpriteFrames_8erm5")
 animation = &"attack1"
 speed_scale = 1.5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_fs7ks")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=603527797]
+libraries/ = SubResource("AnimationLibrary_fs7ks")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1383402261]
 limit_left = -1200
 limit_top = -500
 limit_smoothed = true
@@ -986,117 +988,118 @@ drag_vertical_enabled = true
 drag_horizontal_offset = 0.91
 drag_vertical_offset = -0.8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1095123859 groups=["Player"]]
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_f1ek2")
 
-[node name="PlayerHitbox" type="Area2D" parent="."]
+[node name="PlayerHitbox" type="Area2D" parent="." unique_id=1223543682 node_paths=PackedStringArray("health")]
+script = ExtResource("hb_hurtbox")
+health = NodePath("../Components/HealthComponent")
 
-[node name="PlayerHitboxShape" type="CollisionShape2D" parent="PlayerHitbox"]
+[node name="PlayerHitboxShape" type="CollisionShape2D" parent="PlayerHitbox" unique_id=1989832404]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_igrcy")
 
-[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="State Machine" type="Node" parent="." unique_id=421830910 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("12_ukyrk")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+[node name="Idle" type="Node" parent="State Machine" unique_id=83824608 node_paths=PackedStringArray("player")]
 script = ExtResource("13_ukyrk")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
-[node name="Running" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+[node name="Running" type="Node" parent="State Machine" unique_id=1809529407 node_paths=PackedStringArray("player")]
 script = ExtResource("14_7dp3o")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
-[node name="Jumping" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+[node name="Jumping" type="Node" parent="State Machine" unique_id=788686374 node_paths=PackedStringArray("player")]
 script = ExtResource("15_fd4e3")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
-[node name="Falling" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+[node name="Falling" type="Node" parent="State Machine" unique_id=1210699755 node_paths=PackedStringArray("player")]
 script = ExtResource("16_qqcod")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
-[node name="Attack1" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+[node name="Attack1" type="Node" parent="State Machine" unique_id=533130979 node_paths=PackedStringArray("player")]
 script = ExtResource("17_qqcod")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
-[node name="Hurt" type="Node" parent="State Machine" node_paths=PackedStringArray("recover_cooldown", "player")]
+[node name="Hurt" type="Node" parent="State Machine" unique_id=526126668 node_paths=PackedStringArray("player")]
 script = ExtResource("18_l6n3p")
-recover_cooldown = NodePath("../../Cooldowns/Recovering")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
-[node name="Parry" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+[node name="Parry" type="Node" parent="State Machine" unique_id=162128944 node_paths=PackedStringArray("player")]
 script = ExtResource("18_6vxdp")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bnnjryhgj7khk"
 
-[node name="Death" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+[node name="Death" type="Node" parent="State Machine" unique_id=700722645 node_paths=PackedStringArray("player")]
 script = ExtResource("19_7rcsu")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://bi04jq8i2chlp"
 
-[node name="Dash" type="Node" parent="State Machine" node_paths=PackedStringArray("player")]
+[node name="Dash" type="Node" parent="State Machine" unique_id=205812310 node_paths=PackedStringArray("player")]
 script = ExtResource("20_q828n")
 player = NodePath("../..")
 
-[node name="Sword" type="Area2D" parent="." node_paths=PackedStringArray("player", "facing_shape")]
+[node name="Sword" type="Area2D" parent="." unique_id=134201202 node_paths=PackedStringArray("player", "facing_shape")]
 monitoring = false
 script = ExtResource("18_igrcy")
 player = NodePath("..")
 facing_shape = NodePath("CollisionShape2D")
+damage = 70.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword" unique_id=1615700452]
 position = Vector2(18, 5)
 shape = SubResource("RectangleShape2D_qqcod")
 script = ExtResource("19_fs7ks")
 facing_left_postion = Vector2(-18, 5)
 facing_right_postion = Vector2(18, 5)
 
-[node name="Components" type="Node" parent="."]
+[node name="Components" type="Node" parent="." unique_id=1536155657]
 
-[node name="MovementComponent" type="Node" parent="Components" node_paths=PackedStringArray("player", "input_component", "jump_component")]
+[node name="MovementComponent" type="Node" parent="Components" unique_id=873280037 node_paths=PackedStringArray("player", "input_component", "jump_component")]
 script = ExtResource("20_xgk0j")
 player = NodePath("../..")
 input_component = NodePath("../InputComponent")
 jump_component = NodePath("../JumpComponent")
 
-[node name="InputComponent" type="Node" parent="Components"]
+[node name="InputComponent" type="Node" parent="Components" unique_id=782970168]
 script = ExtResource("21_yaseq")
 
-[node name="JumpComponent" type="Node" parent="Components" node_paths=PackedStringArray("player", "input_component", "jump_buffer_timer", "coyote_timer")]
+[node name="HealthComponent" type="Node" parent="Components" unique_id=659411000]
+script = ExtResource("hc_health")
+invulnerability_time = 0.0
+
+[node name="JumpComponent" type="Node" parent="Components" unique_id=1371869234 node_paths=PackedStringArray("player", "input_component", "jump_buffer_timer", "coyote_timer")]
 script = ExtResource("24_ng2ui")
 player = NodePath("../..")
 input_component = NodePath("../InputComponent")
 jump_buffer_timer = NodePath("JumpBufferTimer")
 coyote_timer = NodePath("CoyoteTimer")
 
-[node name="JumpBufferTimer" type="Timer" parent="Components/JumpComponent"]
+[node name="JumpBufferTimer" type="Timer" parent="Components/JumpComponent" unique_id=841266910]
 wait_time = 0.1
 one_shot = true
 
-[node name="CoyoteTimer" type="Timer" parent="Components/JumpComponent"]
+[node name="CoyoteTimer" type="Timer" parent="Components/JumpComponent" unique_id=55579849]
 wait_time = 0.08
 one_shot = true
 
-[node name="Cooldowns" type="Node" parent="."]
+[node name="Cooldowns" type="Node" parent="." unique_id=1729645910]
 
-[node name="Recovering" type="Timer" parent="Cooldowns"]
+[node name="Recovering" type="Timer" parent="Cooldowns" unique_id=92002825]
 wait_time = 0.25
 one_shot = true
 
-[node name="Dash" type="Timer" parent="Cooldowns"]
+[node name="Dash" type="Timer" parent="Cooldowns" unique_id=989880754]
 one_shot = true
 
 [connection signal="facing_direction_changed" from="." to="Sword" method="_on_player_facing_direction_changed"]
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="frame_changed" from="AnimatedSprite2D" to="Sword" method="_on_animated_sprite_2d_frame_changed"]
-[connection signal="area_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_area_entered"]
-[connection signal="area_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_area_exited"]
-[connection signal="body_entered" from="Sword" to="Sword" method="_on_body_entered"]
 [connection signal="timeout" from="Cooldowns/Recovering" to="." method="_on_recovering_timeout"]

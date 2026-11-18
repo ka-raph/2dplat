@@ -8,7 +8,6 @@ var move_direction: Vector2
 var wander_time: float = 5.0
 
 func randomize_wander():
-	Transitioned.emit(self, "Follow")
 	move_direction = Vector2(randf_range(-1, 1), 0).normalized()
 	wander_time = randf_range(1, 3)
 
@@ -21,11 +20,11 @@ func Update(delta: float):
 	wander_time -= delta
 	if wander_time <= 0:
 		randomize_wander()
-		
+
 	if player and is_instance_valid(player):
 		var direction = player.global_position - skeleton.global_position
 		if direction.length() < 100:
-			Transitioned.emit(self, "Follow")
+			Transition(self, FOLLOWING)
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	skeleton.velocity.x = move_direction.x * move_speed

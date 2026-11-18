@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://ckug35irxgdqd"]
+
+[ext_resource type="PackedScene" uid="uid://b8m5j3nk7cv86" path="res://Scenes/Levels/level_1.tscn" id="1_i6g32"]
+[ext_resource type="PackedScene" uid="uid://oomo06yyac23" path="res://Scenes/Player Scenes/player.tscn" id="1_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://cmwn5mycqceaw" path="res://Scenes/Levels/level_2.tscn" id="2_i6g32"]
+[ext_resource type="PackedScene" uid="uid://bgx7ssspwa7fe" path="res://Scenes/Enemy Scenes/ghost.tscn" id="3_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://dl0af4fvrs7ms" path="res://Scenes/Enemy Scenes/skeleton.tscn" id="4_3dryh"]
+[ext_resource type="Script" uid="uid://b4wougtatpco4" path="res://Scripts/GameManager/UI/Canvas/Fadeouts/on_death_fadeout.gd" id="5_wowpa"]
+
+[node name="Game" type="Node2D" unique_id=1147252356]
+
+[node name="World" type="Node2D" parent="." unique_id=1837434645]
+
+[node name="Level1" parent="World" unique_id=323840741 instance=ExtResource("1_i6g32")]
+
+[node name="Level2" parent="World" unique_id=1297154611 instance=ExtResource("2_i6g32")]
+
+[node name="Player" parent="World" unique_id=166671870 instance=ExtResource("1_qxrlw")]
+position = Vector2(398, 50)
+
+[node name="Ghost" parent="World" unique_id=16925400 groups=["Enemy"] instance=ExtResource("3_wrm1d")]
+position = Vector2(937, -173)
+
+[node name="Skeleton" parent="World" unique_id=710606701 instance=ExtResource("4_3dryh")]
+position = Vector2(511, 47)
+
+[node name="Ghost2" parent="World" unique_id=508944437 groups=["Enemy"] instance=ExtResource("3_wrm1d")]
+position = Vector2(706, -117)
+
+[node name="FadeLayer" type="CanvasLayer" parent="World" unique_id=664007942 groups=["FadeLayer"]]
+layer = 10
+script = ExtResource("5_wowpa")
+
+[node name="FadeRect" type="ColorRect" parent="World/FadeLayer" unique_id=1229449306]
+visible = false
+z_index = 99
+custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

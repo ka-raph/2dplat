@@ -1,7 +1,7 @@
 class_name GhostIdle
 extends State
 
-@export var ghost: CharacterBody2D
+@export var ghost: Ghost
 @export var move_speed: float = 10.0
 
 var player: CharacterBody2D
@@ -24,11 +24,14 @@ func Update(delta: float):
 	else:
 		randomize_wander()
 
-func Physics_Update(delta: float):
-	if ghost:
-		ghost.velocity = move_direction * move_speed
-	
+func Physics_Update(_delta: float):
+	if ghost.is_stunned():
+		return  # Let knockback play out
+	ghost.velocity = move_direction * move_speed
+
+	if not is_instance_valid(player):
+		return
 	var direction = player.global_position - ghost.global_position
-	
+
 	if direction.length() < 100:
 		Transition(self, "Follow")

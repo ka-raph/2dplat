@@ -1,15 +1,15 @@
 class_name SkeletonState
-extends "res://Scripts/state.gd"
+extends State
 
-const IDLE = "idle"
-const FOLLOWING = "follow"
-const ATTACK = "attack"
-const HURT = "hurt"
-const DEATH = "death"
+const IDLE = "Idle"
+const FOLLOWING = "Follow"
+const ATTACK = "Attack"
+const HURT = "Hurt"
+const DEATH = "Death"
 
 @export var skeleton: Skeleton
 
 func _ready() -> void:
 	await owner.ready
 	skeleton = owner as Skeleton
-	assert(skeleton != null, "The SkeletonState type must be used only in the skeleton scene. It needs the owner to be a Skeleton node.")
+	assert(skeleton != null, "Skeleton is null.")

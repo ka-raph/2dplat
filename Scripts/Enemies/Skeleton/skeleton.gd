@@ -1,24 +1,43 @@
 class_name Skeleton
 extends CharacterBody2D
 
-@onready var hurt_animation: AnimationPlayer = $HurtAnimation
-
-var health: float = 120.0
-var is_player_in_attack_zone: bool = false
-
 signal enemy_facing_direction_changed(is_enemy_facing_right: bool)
 
-func _physics_process(delta: float) -> void:
-	move_and_slide()
-	if health <= 0:
-		health = 0
-		
-func enemy() -> void:
-	pass
+@export var health: HealthComponent
+@export var state_machine: StateMachine
+@export var axe: Hitbox
+@export var attack_range: float = 35.0
 
-func hit(damage: float, push_direction_x: float, push_direction_y: float) -> void:
-	health -= damage
+@onready var hurt_animation: AnimationPlayer = $HurtAnimation
+
+var last_knockback: Vector2 = Vector2.ZERO
+var is_facing_right: bool = true
+
+
+func _ready() -> void:
+	add_to_group("enemies")
+	health.damaged.connect(_on_damaged)
+	health.died.connect(func(): state_machine.change_state("Death"))
+
+
+func _physics_process(_delta: float) -> void:
+	move_and_slide()
+
+
+func _on_damaged(_amount: float, knockback: Vector2) -> void:
+	axe.set_deferred("monitoring", false)
 	hurt_animation.play("hurt")
-	
-func update_facing_direction(is_enemy_facing_right: bool) -> void:
-	self.emit_signal("enemy_facing_direction_changed", is_enemy_facing_right)
+	last_knockback = knockback
+	if not health.is_dead():
+		state_machine.change_state("Hurt")
+
+
+func face_towards(target_x: float, sprite: AnimatedSprite2D) -> void:
+	var dx := target_x - global_position.x
+	if dx == 0.0:
+		return
+	sprite.flip_h = dx < 0
+	var facing_right := dx > 0
+	if facing_right != is_facing_right:
+		is_facing_right = facing_right
+		enemy_facing_direction_changed.emit(is_facing_right)

@@ -1,28 +1,22 @@
 extends PlayerState
 
 func Enter() -> void:
+	player.is_dashing = true
 	player.animation.play("dash")
-	
-	var input_direction = player.input_component.get_input_direction_x()
-	if input_direction == 0:
-		input_direction = 1 if not player.sprite.flip_h else -1
-		
-	player.movement_component.handle_dashing(input_direction)
 
-func Physics_Update(delta: float) -> void:
+	var input_direction := player.input_component.get_input_direction_x()
+	if input_direction == 0:
+		input_direction = 1.0 if not player.sprite.flip_h else -1.0
+
+	player.movement_component.handle_dashing(input_direction)
+	player.dashed.emit() # Signal for if we use say a rune system on dash (something happens) Can be removed otherwise
+
+func Physics_Update(_delta: float) -> void:
 	if player.is_dashing:
 		return
-	if player.is_hurt and not player.is_recovering:
-		Transition(self, HURT)
-	elif not player.is_on_floor():
-		Transition(self, FALLING)
-	elif player.input_component.get_attack1_input():
-		Transition(self, ATTACK1)
-	elif player.input_component.get_parry_input():
-		Transition(self, PARRY)
-	elif player.velocity.y < 0:
-		Transition(self, JUMPING)
-	elif is_equal_approx(player.velocity.x, 0.0):
-		Transition(self, IDLE)
-	elif not is_equal_approx(player.velocity.x, 0.0):
-		Transition(self, RUNNING)
+	if try_action_transitions():
+		return
+	try_movement_transitions()
+
+func Exit() -> void:
+	player.is_dashing = false
