@@ -4,21 +4,31 @@ extends CharacterBody2D
 @onready var hurt_animation: AnimationPlayer = $HurtAnimation
 
 @export var sprite: AnimatedSprite2D
+@export var health: HealthComponent
+@export var stun_time: float = 0.2
+@export var knockback_friction: float = 1200.0
 
-var health: float = 100.0
-var is_player_in_attack_zone: bool = false
+var stun_timer: float = 0.0
+
+
+func _ready() -> void:
+	add_to_group("enemies")
+	health.damaged.connect(_on_damaged)
+	health.died.connect(queue_free)
+
 
 func _physics_process(delta: float) -> void:
+	if is_stunned():
+		stun_timer -= delta
+		velocity = velocity.move_toward(Vector2.ZERO, knockback_friction * delta)
 	move_and_slide()
-	if health <= 0:
-		print("Ghost is dead")
-		self.queue_free()
 
-func enemy() -> void:
-	pass
 
-func hit(damage: float, push_direction_x: float, push_direction_y: float) -> void:
-	health -= damage
+func is_stunned() -> bool:
+	return stun_timer > 0.0
+
+
+func _on_damaged(_amount: float, knockback: Vector2) -> void:
 	hurt_animation.play("hurt")
-	velocity.x = push_direction_x * 1000
-	velocity.y = push_direction_y * 1000
+	velocity = knockback
+	stun_timer = stun_time

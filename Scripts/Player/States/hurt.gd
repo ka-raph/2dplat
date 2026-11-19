@@ -1,33 +1,18 @@
 extends PlayerState
-@export var recover_cooldown: Timer
 
-var push_acceleration: float
-
+# Knockback is applied once on Enter, then MovementComponent's friction slows it down.
 func Enter() -> void:
-	push_acceleration = 0.5
 	player.animation.play("hurt")
+	player.velocity = player.last_knockback
+	player.movement_component.control_enabled = false
 
-func Physics_Update(delta: float) -> void:
-	push_acceleration += delta
-	player.velocity.x = player.push_direction.x * 100 / push_acceleration
-	player.velocity.y = player.push_direction.y * 100 / push_acceleration
-	
-	# The is_hurt state is exited as soon as the player is recovering and re-toggled after recovery if necessary
-	if player.health == 0:
+func Physics_Update(_delta: float) -> void:
+	if player.health.is_dead():
 		Transition(self, DEATH)
 	elif player.is_hurt or not player.is_recovering:
 		return
-	elif not player.is_on_floor():
-		Transition(self, FALLING)
-	elif player.input_component.get_attack1_input():
-		Transition(self, ATTACK1)
-	elif player.input_component.get_parry_input():
-		Transition(self, PARRY)
-	elif player.input_component.get_dash_input() and player.dash_cooldown.is_stopped():
-		Transition(self, DASH)
-	elif player.velocity.y < 0:
-		Transition(self, JUMPING)
-	elif not is_equal_approx(player.velocity.x, 0.0):
-		Transition(self, RUNNING)
-	else:
-		Transition(self, IDLE)
+	elif not try_action_transitions():
+		try_movement_transitions()
+
+func Exit() -> void:
+	player.movement_component.control_enabled = true
