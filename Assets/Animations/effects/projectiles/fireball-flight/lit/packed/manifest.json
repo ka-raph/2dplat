@@ -1,0 +1,220 @@
+{
+  "schema": "pvfx.fx.export-manifest/1",
+  "profile": "profile.foundry-packed",
+  "program": "projectiles/fireball-flight",
+  "tier": "lit",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "revision": "sha256:86482fca2df5b58b2ebe4cfcf04754b38d08ef13d58e7bbe2c3bb9e4c0b6ef6e",
+  "clip_hash": "sha256:a419ac9d359d87068267728ac1ca383d23ae2e0d94cb27bda3a7edd1068be3f2",
+  "seed": 2026115201,
+  "options": {
+    "seed": 1790369687
+  },
+  "overrides": {
+    "seed": null,
+    "options": {}
+  },
+  "loop_mode": "loop",
+  "source_size": [
+    72,
+    32
+  ],
+  "pivot": [
+    58,
+    16
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        8,
+        3,
+        70,
+        29
+      ],
+      "trim_bounds": [
+        8,
+        3,
+        70,
+        29
+      ],
+      "trimmed_pivot": [
+        50,
+        13
+      ],
+      "pixel_hash": "sha256:c0c65d792970b4848e3fe703367054b709aae353913e7a0009e10ba81180b7e0",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 2,
+        "y": 92,
+        "width": 62,
+        "height": 26,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 1,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        5,
+        3,
+        70,
+        29
+      ],
+      "trim_bounds": [
+        5,
+        3,
+        70,
+        29
+      ],
+      "trimmed_pivot": [
+        53,
+        13
+      ],
+      "pixel_hash": "sha256:2eef494fa962ef12c7cc787c596a740c772de1eb72535509c2a5eed5852945c2",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 2,
+        "y": 2,
+        "width": 65,
+        "height": 26,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 2,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        9,
+        3,
+        70,
+        29
+      ],
+      "trim_bounds": [
+        9,
+        3,
+        70,
+        29
+      ],
+      "trimmed_pivot": [
+        49,
+        13
+      ],
+      "pixel_hash": "sha256:cfdcc2e04f316296808606321ffb8a0ec0fcd824ca0f978181d580f089c74674",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 2,
+        "y": 152,
+        "width": 61,
+        "height": 26,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 3,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        6,
+        3,
+        70,
+        29
+      ],
+      "trim_bounds": [
+        6,
+        3,
+        70,
+        29
+      ],
+      "trimmed_pivot": [
+        52,
+        13
+      ],
+      "pixel_hash": "sha256:b074d7b5eb920557cd7ade50ecba220e18383324e2b081254eddae15b5bd3bb4",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 2,
+        "y": 62,
+        "width": 64,
+        "height": 26,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 4,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        8,
+        3,
+        70,
+        29
+      ],
+      "trim_bounds": [
+        8,
+        3,
+        70,
+        29
+      ],
+      "trimmed_pivot": [
+        50,
+        13
+      ],
+      "pixel_hash": "sha256:eb289a6fed78de4fd173a53095995e71e9ff41d3ce2fe881b39d9eba2990c00d",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 2,
+        "y": 122,
+        "width": 62,
+        "height": 26,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 5,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        5,
+        3,
+        70,
+        29
+      ],
+      "trim_bounds": [
+        5,
+        3,
+        70,
+        29
+      ],
+      "trimmed_pivot": [
+        53,
+        13
+      ],
+      "pixel_hash": "sha256:934a42749f2553d22578b78a56c4f554ce6c4f0043e5494cb38f4b22ac557f39",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 2,
+        "y": 32,
+        "width": 65,
+        "height": 26,
+        "scale": 1
+      }
+    }
+  ]
+}

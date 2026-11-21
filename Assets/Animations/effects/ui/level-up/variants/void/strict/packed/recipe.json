@@ -1,0 +1,46 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "ui/level-up",
+  "revision": "sha256:beeb7118eeaa4cb124d413cf6a9a295e0d554008f0032f86d3c552a2998fa2e1",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "strict",
+  "seed": 20261104,
+  "options": {
+    "palette": [
+      "#675eb5",
+      "#bb98ff",
+      "#e5c4ff",
+      "#f6e3fe",
+      "#fffbe8",
+      "#ffffff"
+    ],
+    "seed": 1306167311
+  },
+  "overrides": {
+    "seed": null,
+    "options": {
+      "palette": [
+        "#675eb5",
+        "#bb98ff",
+        "#e5c4ff",
+        "#f6e3fe",
+        "#fffbe8",
+        "#ffffff"
+      ]
+    }
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-packed",
+    "sprite_sheet": {
+      "layout": "packed",
+      "trim": "per_frame",
+      "padding": 1,
+      "extrude": 1,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}

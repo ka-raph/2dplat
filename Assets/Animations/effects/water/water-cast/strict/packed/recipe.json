@@ -1,0 +1,29 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "water/water-cast",
+  "revision": "sha256:2a4c000b33c87464e13bbf60999c7af086e2dd849221fa9247b27aac95f80191",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "strict",
+  "seed": 2026115117,
+  "options": {
+    "seed": 3863848784
+  },
+  "overrides": {
+    "seed": null,
+    "options": {}
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-packed",
+    "sprite_sheet": {
+      "layout": "packed",
+      "trim": "per_frame",
+      "padding": 1,
+      "extrude": 1,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}

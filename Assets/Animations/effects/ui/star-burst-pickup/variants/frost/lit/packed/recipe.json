@@ -1,0 +1,46 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "ui/star-burst-pickup",
+  "revision": "sha256:b318bbf7730f4a2272567f29bf30f68755147f47f9e5d96c2f2ad801b7e9397a",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "lit",
+  "seed": 20261117,
+  "options": {
+    "palette": [
+      "#013d57",
+      "#0370a0",
+      "#2aa5fa",
+      "#b2ceff",
+      "#eaeffe",
+      "#ffffff"
+    ],
+    "seed": 1777563866
+  },
+  "overrides": {
+    "seed": null,
+    "options": {
+      "palette": [
+        "#013d57",
+        "#0370a0",
+        "#2aa5fa",
+        "#b2ceff",
+        "#eaeffe",
+        "#ffffff"
+      ]
+    }
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-packed",
+    "sprite_sheet": {
+      "layout": "packed",
+      "trim": "per_frame",
+      "padding": 1,
+      "extrude": 1,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}
