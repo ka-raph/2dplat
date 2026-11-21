@@ -1,0 +1,796 @@
+{
+  "schema": "pvfx.fx.export-manifest/1",
+  "profile": "profile.foundry-packed",
+  "program": "scifi/cloak-shimmer",
+  "tier": "lit",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "revision": "sha256:0a4a61be94f53d4f965a9812e7423b4082b61a53654143bb3242c593c3354e44",
+  "clip_hash": "sha256:8efc8a67c599604eb60aa091f1ceb4654ef11817b06a0008ea4fb5fb8253bb25",
+  "seed": 2026111751,
+  "options": {
+    "seed": 811631543
+  },
+  "overrides": {
+    "seed": null,
+    "options": {}
+  },
+  "loop_mode": "loop",
+  "source_size": [
+    48,
+    72
+  ],
+  "pivot": [
+    22,
+    69
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        9,
+        37,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        9,
+        37,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        60
+      ],
+      "pixel_hash": "sha256:d00ce943ec95496b986d3849ed1a2ec90c63a4a2a89c2e560e31eb9e9182d661",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 74,
+        "y": 204,
+        "width": 30,
+        "height": 59,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 1,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        1,
+        38,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        1,
+        38,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        68
+      ],
+      "pixel_hash": "sha256:f722d97fc6ba35d8590a77419785411fa2a428a8d99a1ac24f72ad1d06e4cd74",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 73,
+        "y": 2,
+        "width": 31,
+        "height": 67,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 2,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        6,
+        41,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        6,
+        41,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        63
+      ],
+      "pixel_hash": "sha256:12a6d65e77a6e2e7fc0a5defcd860626f81f6cf72256d3459a4e5e1bee455cfc",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 180,
+        "y": 2,
+        "width": 34,
+        "height": 62,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 3,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        9,
+        41,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        9,
+        41,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        60
+      ],
+      "pixel_hash": "sha256:71115889af006f9d9a490be2c317814fa425b7eea67ea380810507636f0ab19a",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 146,
+        "y": 140,
+        "width": 34,
+        "height": 59,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 4,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        9,
+        39,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        9,
+        39,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        60
+      ],
+      "pixel_hash": "sha256:ffb29e0335980d82437feef3acde4fe3941c10640d8bebc34210c9139d242523",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 222,
+        "y": 140,
+        "width": 32,
+        "height": 59,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 5,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        9,
+        39,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        9,
+        39,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        60
+      ],
+      "pixel_hash": "sha256:754ecc2093d88ac5bd12dbb38b240e09a8e034d3a82696838a50ae95197d6896",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 2,
+        "y": 204,
+        "width": 32,
+        "height": 59,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 6,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        9,
+        39,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        9,
+        39,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        60
+      ],
+      "pixel_hash": "sha256:d16ef58200e47fd2931bae5262da8306aa05c685568c0a77d5c072903c1b1178",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 38,
+        "y": 204,
+        "width": 32,
+        "height": 59,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 7,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        1,
+        38,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        1,
+        38,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        68
+      ],
+      "pixel_hash": "sha256:e93e1f2d5acbad77a513abc64e2aa3ea0f048d12a646f015f1a47161c527517c",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 108,
+        "y": 2,
+        "width": 31,
+        "height": 67,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 8,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        6,
+        40,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        6,
+        40,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        63
+      ],
+      "pixel_hash": "sha256:267d0da72fdfad5afce4251bce18188d50372cc44e43039a5fa369a602a1bedc",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 218,
+        "y": 2,
+        "width": 33,
+        "height": 62,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 9,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        8,
+        39,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        8,
+        39,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        61
+      ],
+      "pixel_hash": "sha256:28fdcb5e38beb20b365cf15da67b1b6152a24ad949252c1ff5c40dfdb4f748d2",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 193,
+        "y": 74,
+        "width": 32,
+        "height": 60,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 10,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        8,
+        43,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        8,
+        43,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        61
+      ],
+      "pixel_hash": "sha256:6a4b59e946c5678f77f79fd9d7f1c39dca7e42b113bdd05adcfadb9e9462ccd7",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 116,
+        "y": 74,
+        "width": 36,
+        "height": 60,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 11,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        8,
+        37,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        8,
+        37,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        61
+      ],
+      "pixel_hash": "sha256:3f01cc06ad38e8ddf239a8c687c2a04b38273d8fae280565703613c9a278d1e1",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 73,
+        "y": 140,
+        "width": 30,
+        "height": 60,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 12,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        8,
+        38,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        8,
+        38,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        61
+      ],
+      "pixel_hash": "sha256:a9ad9196d2801ba21b150dad4039cb20c5ae13e8ad2e9b2ecfd986f631948cce",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 38,
+        "y": 140,
+        "width": 31,
+        "height": 60,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 13,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        1,
+        38,
+        69
+      ],
+      "trim_bounds": [
+        7,
+        1,
+        38,
+        69
+      ],
+      "trimmed_pivot": [
+        15,
+        68
+      ],
+      "pixel_hash": "sha256:5e808a47680f4b24adfd2771c9229b2d0e48ab502c00332884892806cb8cd197",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 38,
+        "y": 2,
+        "width": 31,
+        "height": 68,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 14,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        6,
+        40,
+        69
+      ],
+      "trim_bounds": [
+        7,
+        6,
+        40,
+        69
+      ],
+      "trimmed_pivot": [
+        15,
+        63
+      ],
+      "pixel_hash": "sha256:28b08640c57d3d2f7cfbd1a7196ddae63106f09f2e3a261f295af6f9b156947c",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 143,
+        "y": 2,
+        "width": 33,
+        "height": 63,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 15,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        8,
+        41,
+        69
+      ],
+      "trim_bounds": [
+        7,
+        8,
+        41,
+        69
+      ],
+      "trimmed_pivot": [
+        15,
+        61
+      ],
+      "pixel_hash": "sha256:a5b705576a26f080aeea7d6d4a67530e977f3537e4dc73a42f19b830d4265198",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 78,
+        "y": 74,
+        "width": 34,
+        "height": 61,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 16,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        8,
+        44,
+        69
+      ],
+      "trim_bounds": [
+        7,
+        8,
+        44,
+        69
+      ],
+      "trimmed_pivot": [
+        15,
+        61
+      ],
+      "pixel_hash": "sha256:8bd03df89ae508e7c3d98f5cac422bc956eeac3b6aef522a0e30156ee50fbd77",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 37,
+        "y": 74,
+        "width": 37,
+        "height": 61,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 17,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        9,
+        40,
+        69
+      ],
+      "trim_bounds": [
+        7,
+        9,
+        40,
+        69
+      ],
+      "trimmed_pivot": [
+        15,
+        60
+      ],
+      "pixel_hash": "sha256:97126dde702961107c45fbe951b1446f7d9c73b3218a3d4ae75b328f96f76779",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 156,
+        "y": 74,
+        "width": 33,
+        "height": 60,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 18,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        9,
+        39,
+        69
+      ],
+      "trim_bounds": [
+        7,
+        9,
+        39,
+        69
+      ],
+      "trimmed_pivot": [
+        15,
+        60
+      ],
+      "pixel_hash": "sha256:3723afa4bf739cb0ad3992753f20065803e77e2ae8075ba52ff32c820c4c1cba",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 2,
+        "y": 140,
+        "width": 32,
+        "height": 60,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 19,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        1,
+        39,
+        69
+      ],
+      "trim_bounds": [
+        7,
+        1,
+        39,
+        69
+      ],
+      "trimmed_pivot": [
+        15,
+        68
+      ],
+      "pixel_hash": "sha256:62e1ec77596b63e754c6bcf13e0d02d33c5a593342b81ceb5fb7dd3c9c8d18c5",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 2,
+        "y": 2,
+        "width": 32,
+        "height": 68,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 20,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        6,
+        38,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        6,
+        38,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        63
+      ],
+      "pixel_hash": "sha256:0859231128c7963990d2cb23a26910fc8c638c5eff3506fc3ba59d09b109ec42",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 2,
+        "y": 74,
+        "width": 31,
+        "height": 62,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 21,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        9,
+        42,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        9,
+        42,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        60
+      ],
+      "pixel_hash": "sha256:217767422b7a742742be0d84a435f0849b26c974e771ce27171a429fabf1f08e",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 107,
+        "y": 140,
+        "width": 35,
+        "height": 59,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 22,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        9,
+        41,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        9,
+        41,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        60
+      ],
+      "pixel_hash": "sha256:e1a0ba9ee21141c9090b2d58d954b3ffc767c54c5a4d331567c07993f0def697",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 184,
+        "y": 140,
+        "width": 34,
+        "height": 59,
+        "scale": 1
+      }
+    },
+    {
+      "frame": 23,
+      "duration": {
+        "numerator_ms": 70,
+        "denominator": 1
+      },
+      "visible_bounds": [
+        7,
+        9,
+        37,
+        68
+      ],
+      "trim_bounds": [
+        7,
+        9,
+        37,
+        68
+      ],
+      "trimmed_pivot": [
+        15,
+        60
+      ],
+      "pixel_hash": "sha256:929b80f66fccbf1ac3b9c8125cb859ab6b4662eedf68e3dc6ca1ff02bc315938",
+      "sheet": {
+        "image": "sprite-sheet.png",
+        "x": 108,
+        "y": 204,
+        "width": 30,
+        "height": 59,
+        "scale": 1
+      }
+    }
+  ]
+}

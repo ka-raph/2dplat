@@ -1,0 +1,47 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "scifi/plasma-impact",
+  "revision": "sha256:a6676154f67567f117342d89930a73b36c38bd44e575a23a7b4ce4be85ab322f",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "strict",
+  "seed": 2026115314,
+  "options": {
+    "palette": [
+      "#001f16",
+      "#165231",
+      "#5d9055",
+      "#9ace7d",
+      "#d2f2c3",
+      "#ffffff"
+    ],
+    "seed": 1153228406
+  },
+  "overrides": {
+    "seed": null,
+    "options": {
+      "palette": [
+        "#001f16",
+        "#165231",
+        "#5d9055",
+        "#9ace7d",
+        "#d2f2c3",
+        "#ffffff"
+      ]
+    }
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-grid",
+    "sprite_sheet": {
+      "layout": "grid",
+      "columns": 8,
+      "trim": "none",
+      "padding": 0,
+      "extrude": 0,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}

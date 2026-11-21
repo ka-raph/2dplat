@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://bvfm6mhan3mxd" path="res://Scripts/Components/health_component.gd" id="hc_health"]
 [ext_resource type="Script" uid="uid://dne17wgfpnhb7" path="res://Scripts/Components/hurtbox.gd" id="hb_hurtbox"]
 [ext_resource type="Script" uid="uid://dlp444nv0jv3f" path="res://Scripts/Components/hitbox.gd" id="ht_hitbox"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Ghost/States/charge.gd" id="charge_state"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_prwv0"]
 shader = ExtResource("2_vdkt2")
@@ -119,6 +120,8 @@ _data = {
 }
 
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "health")]
+collision_layer = 4
+collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_yxsxn")
 sprite = NodePath("AnimatedSprite2D")
@@ -149,9 +152,13 @@ script = ExtResource("10_xoekh")
 ghost = NodePath("../..")
 metadata/_custom_type_script = "uid://260sqmng1uuu"
 
+[node name="Charge" type="Node" parent="State Machine" node_paths=PackedStringArray("ghost", "hitbox")]
+script = ExtResource("charge_state")
+ghost = NodePath("../..")
+hitbox = NodePath("../../GhostHitbox")
+
 [node name="GhostHitbox" type="Area2D" parent="." groups=["Enemy"]]
 script = ExtResource("ht_hitbox")
-damage = 15.0
 knockback_force = 150.0
 target_group = &"Player"
 once_per_swing = false

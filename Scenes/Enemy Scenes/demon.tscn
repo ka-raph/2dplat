@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://cimthgqj5wln6"]
+
+[ext_resource type="Script" uid="uid://k3gittckxewr" path="res://Scripts/Enemies/Demon/demon.gd" id="demon"]
+[ext_resource type="SpriteFrames" uid="uid://jkas23rji2hq" path="res://Scenes/Enemy Scenes/demon_frames.tres" id="frames"]
+[ext_resource type="Script" uid="uid://bvfm6mhan3mxd" path="res://Scripts/Components/health_component.gd" id="health"]
+[ext_resource type="Script" uid="uid://dlp444nv0jv3f" path="res://Scripts/Components/hitbox.gd" id="hitbox"]
+[ext_resource type="Script" uid="uid://dne17wgfpnhb7" path="res://Scripts/Components/hurtbox.gd" id="hurtbox"]
+[ext_resource type="Script" uid="uid://dad5xhjwn6lno" path="res://Scripts/state_machine.gd" id="sm"]
+[ext_resource type="Script" uid="uid://bwk7ynnn60jqj" path="res://Scripts/Enemies/Demon/States/attack.gd" id="s_attack"]
+[ext_resource type="Script" uid="uid://ctdbougxmcetk" path="res://Scripts/Enemies/Demon/States/chase.gd" id="s_chase"]
+[ext_resource type="Script" uid="uid://dixbiyyxejxdd" path="res://Scripts/Enemies/Demon/States/death.gd" id="s_death"]
+[ext_resource type="Script" uid="uid://ddy7feg8yxggp" path="res://Scripts/Enemies/Demon/States/hurt.gd" id="s_hurt"]
+[ext_resource type="Script" uid="uid://c1hc7fpni7qqg" path="res://Scripts/Enemies/Demon/States/idle.gd" id="s_idle"]
+
+[sub_resource type="CapsuleShape2D" id="body_shape"]
+radius = 18.0
+height = 40.0
+
+[sub_resource type="CircleShape2D" id="hurt_shape"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="touch_shape"]
+radius = 13.0
+
+[node name="Demon" type="CharacterBody2D" unique_id=538948194 node_paths=PackedStringArray("sprite", "health", "state_machine")]
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("demon")
+sprite = NodePath("AnimatedSprite2D")
+health = NodePath("HealthComponent")
+state_machine = NodePath("State Machine")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=294923559]
+sprite_frames = ExtResource("frames")
+animation = &"attack"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1779457952]
+position = Vector2(-6, 8)
+shape = SubResource("body_shape")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1908603770 node_paths=PackedStringArray("health")]
+script = ExtResource("hurtbox")
+health = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1188420573]
+position = Vector2(-5.9999924, 8.000002)
+scale = Vector2(1.185, 1.185)
+shape = SubResource("hurt_shape")
+
+[node name="ContactHitbox" type="Area2D" parent="." unique_id=584294585 groups=["Enemy"]]
+script = ExtResource("hitbox")
+knockback_force = 150.0
+target_group = &"Player"
+once_per_swing = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHitbox" unique_id=933740908]
+position = Vector2(-7, 9)
+shape = SubResource("touch_shape")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=842525160]
+script = ExtResource("health")
+max_health = 240.0
+
+[node name="State Machine" type="Node" parent="." unique_id=498666131 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("sm")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="State Machine" unique_id=102487745 node_paths=PackedStringArray("demon")]
+script = ExtResource("s_idle")
+demon = NodePath("../..")
+
+[node name="Chase" type="Node" parent="State Machine" unique_id=270869621 node_paths=PackedStringArray("demon")]
+script = ExtResource("s_chase")
+demon = NodePath("../..")
+
+[node name="Attack" type="Node" parent="State Machine" unique_id=429259265 node_paths=PackedStringArray("demon")]
+script = ExtResource("s_attack")
+demon = NodePath("../..")
+
+[node name="Hurt" type="Node" parent="State Machine" unique_id=1978363138 node_paths=PackedStringArray("demon")]
+script = ExtResource("s_hurt")
+demon = NodePath("../..")
+
+[node name="Death" type="Node" parent="State Machine" unique_id=100706087 node_paths=PackedStringArray("demon")]
+script = ExtResource("s_death")
+demon = NodePath("../..")
