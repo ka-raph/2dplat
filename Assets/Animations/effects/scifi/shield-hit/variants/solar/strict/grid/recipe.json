@@ -1,0 +1,47 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "scifi/shield-hit",
+  "revision": "sha256:763711f290c98b5bb3e6e50650e48366c2c83e15d2735c89159f53f6b10d6a95",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "strict",
+  "seed": 2026115322,
+  "options": {
+    "palette": [
+      "#1c1901",
+      "#554108",
+      "#a27b26",
+      "#f1b458",
+      "#ffdfba",
+      "#ffffff"
+    ],
+    "seed": 1740656115
+  },
+  "overrides": {
+    "seed": null,
+    "options": {
+      "palette": [
+        "#1c1901",
+        "#554108",
+        "#a27b26",
+        "#f1b458",
+        "#ffdfba",
+        "#ffffff"
+      ]
+    }
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-grid",
+    "sprite_sheet": {
+      "layout": "grid",
+      "columns": 8,
+      "trim": "none",
+      "padding": 0,
+      "extrude": 0,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "water/water-whip",
+  "revision": "sha256:44cb3f9f65a9df40ee8a835e151bbff424a270d729b2bec56d7e483fd7c4eebe",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "strict",
+  "seed": 2026111783,
+  "options": {
+    "seed": 3268464402
+  },
+  "overrides": {
+    "seed": null,
+    "options": {}
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-packed",
+    "sprite_sheet": {
+      "layout": "packed",
+      "trim": "per_frame",
+      "padding": 1,
+      "extrude": 1,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}

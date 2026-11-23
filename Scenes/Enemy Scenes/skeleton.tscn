@@ -357,7 +357,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8ogdg")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 8.0
 }, {
@@ -549,7 +549,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 6.0
+"speed": 9.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n7d0q"]
@@ -601,6 +601,8 @@ _data = {
 size = Vector2(52, 38)
 
 [node name="Skeleton" type="CharacterBody2D" node_paths=PackedStringArray("health", "state_machine", "axe")]
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_q1wii")
 health = NodePath("HealthComponent")
 state_machine = NodePath("State Machine")
@@ -627,7 +629,8 @@ shape = SubResource("CapsuleShape2D_vmgqc")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("hc_health")
-max_health = 120.0
+max_health = 260.0
+max_poise = 45.0
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("7_k4moy")
@@ -635,7 +638,7 @@ initial_state = NodePath("Idle")
 
 [node name="Follow" type="Node" parent="State Machine" node_paths=PackedStringArray("sprite", "skeleton")]
 script = ExtResource("9_q1wii")
-move_speed = 10.0
+move_speed = 45.0
 sprite = NodePath("../../AnimatedSprite2D")
 skeleton = NodePath("../..")
 metadata/_custom_type_script = "uid://260sqmng1uuu"
@@ -671,8 +674,8 @@ libraries = {
 position = Vector2(10.75, 8)
 monitoring = false
 script = ExtResource("14_cxuko")
-damage = 25.0
-knockback_force = 200.0
+knockback_force = 280.0
+knockback_lift = 140.0
 target_group = &"Player"
 animatedSprite = NodePath("../AnimatedSprite2D")
 skeleton = NodePath("..")

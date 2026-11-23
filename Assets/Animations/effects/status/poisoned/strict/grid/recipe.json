@@ -1,0 +1,30 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "status/poisoned",
+  "revision": "sha256:a3a99e6efcb92a490ca06f66c17d52f16390d70b832eec4b864cc6b1ebebeab7",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "strict",
+  "seed": 20261102,
+  "options": {
+    "seed": 2906921921
+  },
+  "overrides": {
+    "seed": null,
+    "options": {}
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-grid",
+    "sprite_sheet": {
+      "layout": "grid",
+      "columns": 8,
+      "trim": "none",
+      "padding": 0,
+      "extrude": 0,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}

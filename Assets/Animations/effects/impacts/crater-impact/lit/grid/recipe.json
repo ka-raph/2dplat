@@ -1,0 +1,30 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "impacts/crater-impact",
+  "revision": "sha256:ab9ed7858d20c51631c06609a0cc9f4447f2812ad47206536f2b33c74f4aaf8e",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "lit",
+  "seed": 2026111733,
+  "options": {
+    "seed": 2488701797
+  },
+  "overrides": {
+    "seed": null,
+    "options": {}
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-grid",
+    "sprite_sheet": {
+      "layout": "grid",
+      "columns": 8,
+      "trim": "none",
+      "padding": 0,
+      "extrude": 0,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}

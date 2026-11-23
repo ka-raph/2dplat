@@ -1,0 +1,29 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "ambient/cloud-drift",
+  "revision": "sha256:363c5dacda2474e3ab574fd944e5faa80e65256f889c7e5c7d0865bc18c7e053",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "strict",
+  "seed": 2026115403,
+  "options": {
+    "seed": 4090452588
+  },
+  "overrides": {
+    "seed": null,
+    "options": {}
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-packed",
+    "sprite_sheet": {
+      "layout": "packed",
+      "trim": "per_frame",
+      "padding": 1,
+      "extrude": 1,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}

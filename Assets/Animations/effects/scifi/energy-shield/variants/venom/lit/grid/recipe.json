@@ -1,0 +1,47 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "scifi/energy-shield",
+  "revision": "sha256:11761e3b3007e327ca152a7107e4c4b32c49f023c401ef0d37d466609e85eaf3",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "lit",
+  "seed": 2026115321,
+  "options": {
+    "palette": [
+      "#001f13",
+      "#254f2d",
+      "#599355",
+      "#9cd37c",
+      "#d3f0bc",
+      "#ffffff"
+    ],
+    "seed": 1812210778
+  },
+  "overrides": {
+    "seed": null,
+    "options": {
+      "palette": [
+        "#001f13",
+        "#254f2d",
+        "#599355",
+        "#9cd37c",
+        "#d3f0bc",
+        "#ffffff"
+      ]
+    }
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-grid",
+    "sprite_sheet": {
+      "layout": "grid",
+      "columns": 8,
+      "trim": "none",
+      "padding": 0,
+      "extrude": 0,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}

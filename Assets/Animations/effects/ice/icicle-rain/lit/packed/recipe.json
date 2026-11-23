@@ -1,0 +1,29 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "ice/icicle-rain",
+  "revision": "sha256:af932a86aee361d3743ee19a013b3b68a3a112412fa89f163a338e73ac405c15",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "lit",
+  "seed": 2026111735,
+  "options": {
+    "seed": 746677604
+  },
+  "overrides": {
+    "seed": null,
+    "options": {}
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-packed",
+    "sprite_sheet": {
+      "layout": "packed",
+      "trim": "per_frame",
+      "padding": 1,
+      "extrude": 1,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}

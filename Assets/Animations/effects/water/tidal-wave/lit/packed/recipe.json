@@ -1,0 +1,29 @@
+{
+  "schema": "pvfx.recipe/1",
+  "effect": "water/tidal-wave",
+  "revision": "sha256:3c17039f20af28a9438ac55c7f4a03a1ae88ddd02b8137af093f7b486ad0f497",
+  "renderer": "pvfx-fx/0.1.0+quickjs-ng-0.16.2+pixelfx-0.3.0-a841596",
+  "tier": "lit",
+  "seed": 20261163,
+  "options": {
+    "seed": 4133628881
+  },
+  "overrides": {
+    "seed": null,
+    "options": {}
+  },
+  "profile": {
+    "schema": "pvfx.export-profile/0.3-dev",
+    "id": "profile.foundry-packed",
+    "sprite_sheet": {
+      "layout": "packed",
+      "trim": "per_frame",
+      "padding": 1,
+      "extrude": 1,
+      "scale": 1,
+      "deduplicate": false
+    },
+    "manifest": true,
+    "warning_policy": "allow"
+  }
+}
